@@ -1,0 +1,25 @@
+Group Meetings Log
+
+22 February {Project Selection Meeting}
+	-> Selected the project idea (Restaurant Managament Game)
+
+24 February {Projcect Specification Meeting}
+	-> Discussed the general aspects of the game
+	-> Selected design and gameplay ideas
+
+6-7 March {Requirements Report Meetings}
+	-> Prepared framework for requirements report and distributed workload
+
+14 March {Requirements Presentation Meeting}
+	-> Prepared the requirements presentation video
+
+19 April {UI Planning Meeting}
+	-> Planned the needed UIs
+	-> Aggreed upon some common themes about the UI
+
+25 April {UI Discussion Meeting}
+	-> Discussed some ready UIs and the UI map
+
+10 May {Detailed Design Meeting}
+	-> Discussed the detailed design of the project
+	-> Distributed project workload

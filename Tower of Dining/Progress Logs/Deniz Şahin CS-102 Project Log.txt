@@ -1,0 +1,37 @@
+Deniz Şahin CS-102 Project Log
+
+6-12 February
+	-> Formed group
+
+20-26 February (~ 2h)
+	-> Formulated project idea with group(~ 1h)
+	-> Formulated the general aspects of the game with group (~ 1h)
+
+6-12 March (~ 2h)
+	-> Discussed requirements report with group(~ 1h) 
+	-> Prepared part of requirements report (~ 1h)
+
+27 March- 2 April (~ 2h)
+	-> Watched LibGDX tutorials (~ 2h)
+
+17-23 April (~ 2h)
+	-> Discussed UI ideas with group(~ 1h)
+	-> Prepared UI designs for leaderboard and price management screens (~ 1h)
+
+24-30 April (~ 2h)
+	-> Prepared explanations for UI designs I created (~ 1h)
+	-> Fixed problems with requirements report V1 (~ 1h)
+
+8-14 May (~ 3h)
+	-> Distributed the project to group members with group (~ 1h)
+	-> Created the repository with group
+	-> Worked on post-pull run problems (~ 1h)
+
+15-20 May (~ 3h)
+	-> Learned about JDBC (~ 2h)
+	-> Wrote detailed design parts given to me (~ 1h)
+
+22-28 May (~ 2h)
+	23 May (~ 2h)
+		-> Wrote the first version of the Restaurant class (~ 1h)
+		-> Wrote the group meetings and personal log (~ 1h)
