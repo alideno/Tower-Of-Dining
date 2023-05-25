@@ -12,13 +12,15 @@ public class Restaurant {
     
     //defining the restaurant related variables
     private boolean isOpen; //is restaurant open
+    private int purchasePrice; //the purchase price of the restaurant
 
     //constructor
-    Restaurant()
+    public Restaurant(int purchasePrice)
     {
         foods = new Food[3];
         addedFoods = 0;
-        isOpen = false;    
+        isOpen = false;
+        this.purchasePrice = purchasePrice;
     }
 
     /**
@@ -46,15 +48,6 @@ public class Restaurant {
     }
 
     /**
-     * This method returns the opennes status of the restaurant
-     * @return true if restaurant is open
-     */
-    public boolean isOpen()
-    {
-        return this.isOpen;
-    }
-
-    /**
      * This method calculates the end of day income and reduces the food used up
      * @return income this restaurant provided on this day
      */
@@ -71,4 +64,25 @@ public class Restaurant {
         }
         return earning;
     }
+
+    //#region getter methods
+    /**
+     * This method returns the purchase price of the restaurant
+     * @return the price of the restaurant
+     */
+    public int getPrice()
+    {
+        return this.purchasePrice;
+    }
+
+    /**
+     * This method returns the opennes status of the restaurant
+     * @return true if restaurant is open
+     */
+    public boolean isOpen()    
+    {
+        return this.isOpen;
+    }
+
+    //#endregion
 }
