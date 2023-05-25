@@ -31,7 +31,11 @@ Deniz Şahin CS-102 Project Log
 	-> Learned about JDBC (~ 2h)
 	-> Wrote detailed design parts given to me (~ 1h)
 
-22-28 May (~ 2h)
+22-28 May (~ 6h)
 	23 May (~ 2h)
 		-> Wrote the first version of the Restaurant class (~ 1h)
 		-> Wrote the group meetings and personal log (~ 1h)
+	24 May (~ 4h)
+		-> Created the framework for screens and made changes on base class with group (~ 2h)
+		-> Created endOfDay and PurchaseRestaurant classses with basic framework (~ 2h)
+		-> Imported the font for use and updated the group and personal logs

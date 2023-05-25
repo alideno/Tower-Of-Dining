@@ -23,3 +23,6 @@ Group Meetings Log
 10 May {Detailed Design Meeting}
 	-> Discussed the detailed design of the project
 	-> Distributed project workload
+
+24 May {Screens Meeting}
+	-> Created the framework for all the screens and created the needed classes
