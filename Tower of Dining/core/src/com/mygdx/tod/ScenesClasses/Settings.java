@@ -1,5 +1,7 @@
 package com.mygdx.tod.ScenesClasses;
 
-public class Settings {
+import com.badlogic.gdx.ScreenAdapter;
+
+public class Settings extends ScreenAdapter {
     
 }

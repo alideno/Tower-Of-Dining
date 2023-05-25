@@ -1,0 +1,38 @@
+Eren Berk Eraslan CS-102 Project Log
+
+6-12 February
+	-> Formed group
+
+20-26 February (~ 2h)
+	-> Formulated project idea with group(~ 1h)
+	-> Formulated the general aspects of the game with group (~ 1h)
+
+6-12 March (~ 2h)
+	-> Discussed requirements report with group(~ 1h) 
+	-> Prepared part of requirements report (~ 1h)
+
+17-23 April (~ 2h)
+	-> Discussed UI ideas with group(~ 2h)
+	-> Prepared UI designs for settings screen (~ 1h)
+
+24-30 April (~ 4.5h)
+	-> Combined the explanations for UI designs that everyone created and prepared the UI Design Report (~ 2.5h)
+    -> Watched LibGDX tutorials (~ 2h)
+
+
+8-14 May (~ 3h)
+	-> Distributed the project to group members with group (~ 1h)
+	-> Created the repository with group and worked on possible pull-push problems (~ 2h)
+
+15-20 May (~ 2h)
+    -> Learned how to use LibGDX properly (~ 1h)
+	-> Wrote detailed design parts given to me (~ 1h)
+
+22-28 May (~ 10.5h)
+    23 May (~ 1h)
+		-> Uploaded the assets and class templates to be filled later (~1h)
+	24 May (~ 4h)
+		-> Created the framework for screens and made changes on base class with group (~ 2h)
+	25 May (~ 5.5h)
+		-> Wrote the first version of the MainMenu class (~ 5h)
+		-> Wrote the personal log (~ 0.5h)
