@@ -10,7 +10,17 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		DisplayMode displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode();
-		config.setFullscreenMode(displayMode);
+
+		if(displayMode.width == 1920)
+		{
+			
+			config.setFullscreenMode(displayMode);
+		}
+		else
+		{
+			config.setWindowedMode(1920, 1080);
+		}
+		
 		config.setTitle("Tower Of Dining");
 		new Lwjgl3Application(new TowerOfDining(), config);
 	}
