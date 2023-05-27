@@ -98,12 +98,12 @@ public class PriceManagementMenu extends ScreenAdapter
     {
 
         // Sorts out the buttons and assigns them functions 
-        TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
-        TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
+        // TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
+        // TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         ButtonStyle buttonStyle = new ButtonStyle();
-        buttonStyle.up = upDrawable;
-        buttonStyle.down = downDrawable;
-        int buttonSize = 40;
+        // buttonStyle.up = upDrawable;
+        // buttonStyle.down = downDrawable;
+        int buttonSize = 43;
         int plusXplacement = 1429;
         int minusXplacement = 1356;
 
@@ -133,7 +133,7 @@ public class PriceManagementMenu extends ScreenAdapter
 
         exitButton = new Button(buttonStyle);
         exitButton.setColor(Color.RED);
-        exitButton.setBounds(1690, 800, 50,50);
+        exitButton.setBounds(1679, 802, 57,58);
 
 
 
