@@ -59,9 +59,9 @@ public class PriceManagementMenu extends ScreenAdapter
 
     Slider foodSlider1;
 
-    Texture marker1;
+    Texture marker1;                    // Each slider has a marker with int x that controls their movement along the x axis
     int x1 = 1161;
-    Button sliderZone1;
+    Button sliderZone1;                 // Is an area where the Player will be able to use the slider to choose a price
     Texture marker2;
     int x2 = 1161;
     Button sliderZone2;
@@ -82,7 +82,7 @@ public class PriceManagementMenu extends ScreenAdapter
     private Stage stage;
 
     BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
-    String text1;
+    String text1;       // These are the Strings used for storing the values of Necessary texts for identifying foods and their names
     String text2;
     String text3;
 
@@ -99,8 +99,8 @@ public class PriceManagementMenu extends ScreenAdapter
         marker1 = new Texture("marker.png");
         marker2 = new Texture("marker.png");
         marker3 = new Texture("marker.png");
-        allButtonsClick();  // Makes all buttons pressable
-        font.getData().setScale(1.8f);
+        allButtonsClick();  // Makes all buttons pressable and gives them function
+        font.getData().setScale(1.8f);      // Answers for the size of the Texts
 
 
         
@@ -129,7 +129,7 @@ public class PriceManagementMenu extends ScreenAdapter
 
     public void setPriceMenuImg (String filename)
     {
-        // For setting different layouts for  
+        // For setting different layouts for restaurants
         this.priceMenuImg = new Texture(filename);
     }
 
@@ -141,10 +141,14 @@ public class PriceManagementMenu extends ScreenAdapter
         game.batch.draw(background, 0, 0);
         game.batch.draw(priceMenuImg, 0, 0);
 
+
+        // Answers for the display of the sliders' marks and where they are
         game.batch.draw(marker1,x1, 634);
         game.batch.draw(marker2,x2, 480);
         game.batch.draw(marker3,x3, 324);
         
+
+        // Answers for display of prices and their change is updated here
         font.draw(game.batch, Double.toString( Math.round(sellingPrice1*100.0)/100.0) , 1520,677);
         font.draw(game.batch, Double.toString(Math.round(sellingPrice2*100.0)/100.0) , 1520,520);
         font.draw(game.batch, Double.toString(Math.round(sellingPrice3*100.0)/100.0) , 1520,364);
@@ -159,6 +163,8 @@ public class PriceManagementMenu extends ScreenAdapter
 
     public void generateSliders ()
     {
+
+        // To use ONLY after the foods were added to the menu
         sellingPrice1 = menu.get(0).getBasePrice();
         sellingPrice2 = menu.get(1).getBasePrice();
         sellingPrice3 = menu.get(2).getBasePrice();
@@ -443,6 +449,8 @@ public class PriceManagementMenu extends ScreenAdapter
 
     public void decreaseSellingPrice1 ()
     {
+
+        // This method is used not only for decreasing the sellingPrice, but also for the the new coordinates of the marker of the slider
         
         if (sellingPrice1 < menu.get(0).getBasePrice()*(1-priceModiefier))
             {
@@ -465,6 +473,8 @@ public class PriceManagementMenu extends ScreenAdapter
 
     public void increaseSellingPrice1 ()
     {
+
+        // Same applies here too except its function is to increase the sellingPrice
         
         
             sellingPrice1+=changeStep;
