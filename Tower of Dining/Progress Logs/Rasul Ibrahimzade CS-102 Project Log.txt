@@ -1,0 +1,39 @@
+Rasul Ibrahimzade CS-102 Project Log
+
+6-12 February
+	-> Formed group
+
+20-26 February (~ 2h)
+	-> Formulated project idea with group(~ 1h)
+	-> Formulated the general aspects of the game with group (~ 1h)
+
+6-12 March (~ 2h)
+	-> Discussed requirements report with group(~ 1h) 
+	-> Prepared part of requirements report (~ 1h)
+
+14-17 March (~1.5h)
+	-> Conjured up the first presentation regarding our project  (~1.5h)
+
+17-23 April (~ 2h)
+	-> Discussed UI ideas with group(~ 1h)
+	-> Worked on the designs of shop and pop-up menus (~ 1h)
+
+24-30 April (~ 4h)
+	-> Worked on the more detailed explanation of the assigned menus (~ 1h)
+    -> Started the works on Customer class models and animations (~ 3h)
+
+8-14 May (~ 3.5h)
+	-> Distributed the project to group members with group (~ 1h)
+	-> Finished the Customer class models and fixed the Customer class animation to the style of our game (~ 2.5h)
+
+15-20 May (~ 2h)
+    -> Wrote detailed design parts assigned to me (~ 1h)
+	-> Libgdx videos (~1h)
+
+22-28 May (~ 11.5h)
+    24 May (~ 2h)
+		-> Delved more into LibGDX before implementation(~2h)
+	25 May (~ 1h)
+		-> Started writing the code for the Customer Class (~ 1h)
+	27 May (~ 9.5h)
+		-> Completed the most part of the PriceManagementClass(~ 9.5h)
