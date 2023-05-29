@@ -1,0 +1,34 @@
+
+This is the TowerOfDining leaderboard database creation manual for windows.
+Use this manual once when creating the database for the first time.
+Author: Deniz Şahin
+
+-> Download MySQL from https://dev.mysql.com/downloads/windows/installer/8.0.html
+
+-> Install MySQL
+
+-> Create root account with password "admin"
+
+-> Find the mysql download locaton (Probably C:\Program Files\MySQL)
+
+-> From that folder enter the folder "MySQL Server 8.0"
+
+-> Open said folder in terminal
+
+-> Copy and paste folowing command then press enter "bin\mysql -u root -p"
+
+-> Enter your assigned root password "admin"
+
+-> Then copy and paste the following commands (After each one press enter)
+    -> CREATE DATABASE towerofdining;
+    -> USE towerofdining
+    -> CREATE TABLE Leaderboard (id int NOT NULL AUTO_INCREMENT, name varchar(20) NOT NULL, score int DEFAULT 0, PRIMARY KEY(id));
+
+-> The database is now created now lets seed the database
+
+-> Copy and paste the following command in your command prompt then press enter
+    -> INSERT INTO leaderboard (name, score) VALUES ('Sheldon', 1343), ('Leonard', 1264), ('Amy', 1103), ('Raj', 987), ('Howard', 640), ('Penny', 380), ('Bernadette', 1216), ('Stuart', 743), ('Wheaton', 340), ('Barry', 640), ('Mary', 240);
+
+-> Database is now created with seeding complete
+
+-> Now close DB connection by entering the following command "QUIT;"
