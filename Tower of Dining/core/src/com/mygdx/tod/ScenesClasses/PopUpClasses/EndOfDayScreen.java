@@ -30,6 +30,7 @@ public class EndOfDayScreen extends PopUp{
     private Stage buttonStage;
     private Button nextButton;
     private TowerMenu towerMenu;
+    private int totalEarnings;
 
     public EndOfDayScreen(TowerOfDining game, TowerMenu towerMenu)
     {
@@ -66,10 +67,12 @@ public class EndOfDayScreen extends PopUp{
 
         popupTexture = new Texture(Gdx.files.internal("dayend.png"));
         
+        totalEarnings = 0;
         restaurants = towerMenu.getRestaurants();
         for(int i= 0; i < 8; i++)
         {
             earnings[i] = restaurants[i].endDay();
+            totalEarnings += earnings[i];
         }
 
         Gdx.input.setInputProcessor(buttonStage);
@@ -95,6 +98,8 @@ public class EndOfDayScreen extends PopUp{
             font.draw(game.batch, "" + earnings[i], 400 + column * 600, 210 + row * 200);
         }
         
+        font.draw(game.batch, "" + totalEarnings, 400, 710);
+
         game.batch.end();
 
         buttonStage.act(delta);
