@@ -131,8 +131,11 @@ public class NameEntry extends PopUp{
 
         game.batch.begin();
 
-        game.batch.draw(new Texture("tower.png"), 0, 0);
         game.batch.draw(popupTexture, 0, 0);
+
+        BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
+        font.getData().setScale(2f);
+        font.draw(game.batch, "" + towerMenu.getMoney(), 900, 680);
 
         game.batch.end();
 
