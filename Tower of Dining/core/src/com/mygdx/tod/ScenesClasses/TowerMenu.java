@@ -377,9 +377,11 @@ public class TowerMenu extends ScreenAdapter {
                                                                             // method
                 priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
                 priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                game.newScreen(priceManagementMenu);
+                game.setScreen(priceManagementMenu);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+                
+                
             }
 
         });
