@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.tod.TowerOfDining;
 import com.mygdx.tod.itemClasses.Food;
+import com.mygdx.tod.ScenesClasses.PopUpClasses.EndOfDayScreen;
 import com.mygdx.tod.itemClasses.Restaurant;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -60,6 +61,7 @@ public class TowerMenu extends ScreenAdapter {
         placeForSaleButtons();
         placeRestaurantButtons();
         shopButton();
+        nextDayButton();
         settingsButton();
     }
 
@@ -81,13 +83,13 @@ public class TowerMenu extends ScreenAdapter {
         buttonStyle.up = upDrawable;
         buttonStyle.down = downDrawable;
         Button nextDayButton = new Button(buttonStyle);
-        nextDayButton.setBounds(1760, 930, 130, 130);
+        nextDayButton.setBounds(1600, 110, 300, 70);
         nextDayButton.setColor(1, 1, 1, 0);
         nextDayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // TODO
-                // TODO
+                game.newScreen(new EndOfDayScreen(game));
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
             }
 
@@ -370,12 +372,12 @@ public class TowerMenu extends ScreenAdapter {
         restaurantButtons[0].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
-                game.closeScreen();
-                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever"));         // These are temporary examples. Grab foods from restaurant instances if it has such method
+                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
+                                                                            // from restaurant instances if it has such
+                                                                            // method
                 priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
                 priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                game.setScreen(priceManagementMenu);
+                game.newScreen(priceManagementMenu);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
@@ -603,6 +605,8 @@ public class TowerMenu extends ScreenAdapter {
         font.getData().setScale(1, 1);
         font.draw(game.batch, "Total Money: " + totalMoney, 80, 1000);
         font.draw(game.batch, "Day: " + day, 82, 970);
+        font.getData().setScale(2, 2);
+        font.draw(game.batch, "Next Day", 1600, 170);
 
         game.batch.end();
 
