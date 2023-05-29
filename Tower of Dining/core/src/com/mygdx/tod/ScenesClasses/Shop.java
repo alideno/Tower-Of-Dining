@@ -45,12 +45,12 @@ public class Shop extends ScreenAdapter {
         stage = new Stage();
 
         nextButton = new Button(buttonStyle);
-        nextButton.setColor(1f, 1f, 1f, 0f);
-        nextButton.setBounds(1500, 196, 110, 390);
+        nextButton.setColor(1f,1f,1f,0f);
+        nextButton.setBounds(1500, 790, 390, 110);
         nextButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // TODO
+                nextClick();
 
             }
 
@@ -70,12 +70,32 @@ public class Shop extends ScreenAdapter {
         });
 
         previousButton = new Button(buttonStyle);
-        previousButton.setColor(1f, 1f, 1f, 0f);
-        previousButton.setBounds(1500, 305, 110, 390);
+        previousButton.setColor(1f,1f,1f,0f);
+        previousButton.setBounds(1500, 670, 390, 110);
+        previousButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                prevClick();
 
+            }
+
+        });
+        previousButton.addListener(new InputListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                // Set the cursor to Hand when the mouse enters the button
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                // Restore the default cursor when the mouse exits the button
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
         backButton = new Button(buttonStyle);
         backButton.setBounds(1100, 920, 750, 120);
-        backButton.setColor(Color.BLACK);
+        backButton.setColor(1f,1f,1f,0f);
         stage.addActor(nextButton);
         stage.addActor(previousButton);
         stage.addActor(backButton);
@@ -108,6 +128,22 @@ public class Shop extends ScreenAdapter {
             }
         });
         render(1);
+    }
+
+    public void nextClick(){
+        if (currentShop != 7) {
+            render(currentShop);
+            game.closeScreen();
+            game.newScreen(new Shop(game, currentShop+1, foodCount));
+            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+        }
+    }
+    public void prevClick(){
+        if (currentShop != 0) {
+            game.closeScreen();
+            game.newScreen(new Shop(game, currentShop-1, foodCount));
+            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+        }
     }
 
     public Shop(TowerOfDining game, int currentShop, int[] foodCount) { // ONLY USE IN THIS CLASS
