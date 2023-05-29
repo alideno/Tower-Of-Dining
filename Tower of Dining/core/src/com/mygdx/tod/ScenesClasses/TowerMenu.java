@@ -85,6 +85,8 @@ public class TowerMenu extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 // TODO
                 // TODO
+
+
             }
 
         });
@@ -117,9 +119,11 @@ public class TowerMenu extends ScreenAdapter {
         shopButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.newScreen(priceManagementMenu);
                 // TODO
                 // TODO
+                game.closeScreen();
+                game.newScreen(new Shop(game, 0));
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });

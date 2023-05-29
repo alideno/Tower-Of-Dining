@@ -19,5 +19,8 @@ public class Food {
     public int getBasePrice(){
         return basePrice;
     }
+    public int calculateCustomers() {
+        return 0;
+    }
     
 }
