@@ -52,13 +52,11 @@ public class PriceManagementMenu extends ScreenAdapter
     Window priceMenu;
     ArrayList<Food> menu;
     double changeStep = 0.1;
-    double priceModiefier = 0.5;
+    double priceModiefier = 3;
 
     double sellingPrice1 = 0.00;
     double sellingPrice2 = 0.00;       // The price of the food that will be sold to the customer, controlled by the player
     double sellingPrice3 = 0.00;
-
-    Slider foodSlider1;
 
     Texture marker1;                    // Each slider has a marker with int x that controls their movement along the x axis
     int x1 = 1161;
@@ -131,9 +129,9 @@ public class PriceManagementMenu extends ScreenAdapter
         
         if (menu.size()==3)
         {
-            sellingPrice1 = menu.get(0).getBasePrice();
-            sellingPrice2 = menu.get(1).getBasePrice();
-            sellingPrice3 = menu.get(2).getBasePrice();
+            sellingPrice1 = menu.get(0).getBasePrice() + menu.get(0).getBasePrice()*priceModiefier/2.0;
+            sellingPrice2 = menu.get(1).getBasePrice() + menu.get(1).getBasePrice()*priceModiefier/2.0;
+            sellingPrice3 = menu.get(2).getBasePrice() + menu.get(2).getBasePrice()*priceModiefier/2.0;
             activateTheStage();
         }
 
@@ -363,9 +361,29 @@ public class PriceManagementMenu extends ScreenAdapter
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 x1 = Gdx.input.getX();
-                sellingPrice1 = menu.get(0).getBasePrice()*(1-priceModiefier) + ( ((double)(x1-985) / (double)363) * menu.get(0).getBasePrice() *(priceModiefier*2) ); 
+                sellingPrice1 = menu.get(0).getBasePrice() + ( (double)(x1-990.0) / (double)350.0 ) * menu.get(0).getBasePrice() * priceModiefier ; 
+            if (x1<990)
+            {
+                x1=990;
             }
-
+            else if (x1>1340)
+            {
+                x1=1340;
+            }
+            int basePrice = menu.get(0).getBasePrice();
+            if (sellingPrice1 <= basePrice)
+            {
+                    x1 = 990;
+                    sellingPrice1 = basePrice;
+            }
+            if (sellingPrice1 >= basePrice*(1+priceModiefier))
+            {
+                    x1 = 1340;
+                    sellingPrice1 = basePrice*(1+priceModiefier);
+            }
+            
+            
+            }
         });
         sliderZone1.addListener(new InputListener() {
             @Override
@@ -385,7 +403,26 @@ public class PriceManagementMenu extends ScreenAdapter
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 x2 = Gdx.input.getX();
-                sellingPrice2 = menu.get(1).getBasePrice()*(1-priceModiefier) + ( ((double)(x2-985) / (double)363) * menu.get(1).getBasePrice() *(priceModiefier*2) ); 
+                sellingPrice2 = menu.get(1).getBasePrice() + ( (double)(x2-990.0) / (double)350.0 ) * menu.get(1).getBasePrice() * priceModiefier;
+                if (x2<990)
+                {
+                    x2=990;
+                }
+                else if (x2>1340)
+                {
+                    x2=1340;
+                }
+                int basePrice = menu.get(1).getBasePrice();
+                if (sellingPrice2 <= basePrice)
+            {
+                    x2 = 990;
+                    sellingPrice2 = basePrice;
+            }
+            if (sellingPrice2 >= basePrice*(1+priceModiefier))
+            {
+                    x2 = 1340;
+                    sellingPrice2 = basePrice*(1+priceModiefier);
+            }         
             }
 
         });
@@ -407,7 +444,26 @@ public class PriceManagementMenu extends ScreenAdapter
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 x3 = Gdx.input.getX();
-                sellingPrice3 = menu.get(2).getBasePrice()*(1-priceModiefier) + ( ((double)(x3-985) / (double)363) * menu.get(2).getBasePrice() *(priceModiefier*2) ); 
+                sellingPrice3 = menu.get(2).getBasePrice() + ( (double)(x3-990.0) / (double)350.0 ) * menu.get(2).getBasePrice() * priceModiefier;
+                if (x3<990)
+                {
+                    x3=990;
+                }
+                else if (x3>1340)
+                {
+                    x3=1340;
+                }
+                int basePrice = menu.get(2).getBasePrice();
+                if (sellingPrice3 <= basePrice)
+                {
+                        x3 = 990;
+                        sellingPrice3 = basePrice;
+                }
+                if (sellingPrice3 >= basePrice*(1+priceModiefier))
+                {
+                        x3 = 1340;
+                        sellingPrice3 = basePrice*(1+priceModiefier);
+                } 
             }
 
         });
@@ -457,23 +513,29 @@ public class PriceManagementMenu extends ScreenAdapter
     {
 
         // This method is used not only for decreasing the sellingPrice, but also for the the new coordinates of the marker of the slider
+        int basePrice = menu.get(0).getBasePrice();
+        sellingPrice1-=changeStep;
+
+            
+        x1 =  990 + (int) (348 * (sellingPrice1-basePrice)/(basePrice*(priceModiefier)) ); 
+        System.out.println( (sellingPrice1-basePrice)/(basePrice*(priceModiefier)));
+        System.out.println((30 * (sellingPrice1-basePrice)/(basePrice*(priceModiefier)) ));
+
+        if (x1<990)
+        {
+            x1=990;
+        }
+        else if (x1>1340)
+        {
+            x1=1340;
+        }
+            
+        if (sellingPrice1 <= basePrice)
+        {
+            x1 = 990;
+            sellingPrice1 = basePrice;
+        }
         
-        if (sellingPrice1 < menu.get(0).getBasePrice()*(1-priceModiefier))
-            {
-                x1 = 990;
-                sellingPrice1 = menu.get(0).getBasePrice()*(1-priceModiefier);
-            }
-
-            sellingPrice1-=changeStep;
-
-            
-            x1 =  980 + (int) (363 * (  (sellingPrice1-(menu.get(0).getBasePrice()*(1-priceModiefier))) /(menu.get(0).getBasePrice()*(1+priceModiefier) -(menu.get(0).getBasePrice()*(1-priceModiefier)))));
-            
-            if (sellingPrice1 < menu.get(0).getBasePrice()*(1-priceModiefier))
-            {
-                x1 = 990;
-                sellingPrice1 = menu.get(0).getBasePrice()*(1-priceModiefier);
-            }
 
     }
 
@@ -483,40 +545,56 @@ public class PriceManagementMenu extends ScreenAdapter
         // Same applies here too except its function is to increase the sellingPrice
         
         
-            sellingPrice1+=changeStep;
+        int basePrice = menu.get(0).getBasePrice();
+        
+
+        sellingPrice1+=changeStep;
 
             
-            x1 =  980 + (int) (363 * (  (sellingPrice1-(menu.get(0).getBasePrice()*(1-priceModiefier))) /(menu.get(0).getBasePrice()*(1+priceModiefier) -(menu.get(0).getBasePrice()*(1-priceModiefier)))));
+        x1 =  990 + (int) (350 * (sellingPrice1-basePrice)/(basePrice*priceModiefier) );
             
-            
-            if (sellingPrice1 > menu.get(0).getBasePrice()*(1.0+priceModiefier))
-            {
-                x1 = 1340;
-                sellingPrice1 = menu.get(0).getBasePrice()*(1.0+priceModiefier);
-            }
+        if (x1<990)
+        {
+            x1=990;
+        }
+        else if (x1>1340)
+        {
+            x1=1340;
+        }
+        
+        if (sellingPrice1 >= basePrice*(1+priceModiefier))
+        {
+            x1 = 1340;
+            sellingPrice1 = basePrice*(1+priceModiefier);
+        }
 
     }
 
     public void decreaseSellingPrice2 ()
     {
         
-        if (sellingPrice2 < menu.get(1).getBasePrice()*(1-priceModiefier))
-            {
-                x2 = 990;
-                sellingPrice2 = menu.get(1).getBasePrice()*(1-priceModiefier);
-            }
+        int basePrice = menu.get(1).getBasePrice();
+        
 
-            sellingPrice2-=changeStep;
+        sellingPrice2-=changeStep;
 
             
-            x2 =  980 + (int) (363 * (  (sellingPrice2-(menu.get(1).getBasePrice()*(1-priceModiefier))) /(menu.get(1).getBasePrice()*(1+priceModiefier) -(menu.get(1).getBasePrice()*(1-priceModiefier)))));
+        x2 =  990 + (int) (350 * (sellingPrice2-basePrice)/(basePrice*(priceModiefier)) ); 
+
+        if (x1<990)
+        {
+            x1=990;
+        }
+        else if (x1>1340)
+        {
+            x1=1340;
+        }
             
-            
-            if (sellingPrice2 < menu.get(1).getBasePrice()*(1-priceModiefier))
-            {
-                x2 = 990;
-                sellingPrice2 = menu.get(1).getBasePrice()*(1-priceModiefier);
-            }
+        if (sellingPrice2 <= basePrice)
+        {
+            x2 = 990;
+            sellingPrice2 = basePrice;
+        }
 
     }
 
@@ -524,57 +602,84 @@ public class PriceManagementMenu extends ScreenAdapter
     {
         
         
-            sellingPrice2+=changeStep;
+        int basePrice = menu.get(1).getBasePrice();
+        
+
+        sellingPrice2+=changeStep;
 
             
-            x2 =  980 + (int) (363 * (  (sellingPrice2-(menu.get(1).getBasePrice()*(1-priceModiefier))) /(menu.get(1).getBasePrice()*(1+priceModiefier) -(menu.get(1).getBasePrice()*(1-priceModiefier)))));
+        x2 =  990 + (int) (350 * (sellingPrice2-basePrice)/(basePrice*priceModiefier) );
             
+        if (x1<990)
+        {
+            x1=990;
+        }
+        else if (x1>1340)
+        {
+            x1=1340;
+        }
             
-            if (sellingPrice2 > menu.get(1).getBasePrice()*(1.0+priceModiefier))
-            {
-                x2 = 1340;
-                sellingPrice2 = menu.get(1).getBasePrice()*(1.0+priceModiefier);
-            }
+        if (sellingPrice2 >= basePrice*(1+priceModiefier))
+        {
+            x2 = 1340;
+            sellingPrice2 = basePrice*(1+priceModiefier);
+        }
 
     }
 
     public void decreaseSellingPrice3 ()
     {
         
-        if (sellingPrice3 < menu.get(2).getBasePrice()*(1-priceModiefier))
-            {
-                x3 = 990;
-                sellingPrice3 = menu.get(2).getBasePrice()*(1-priceModiefier);
-            }
+        int basePrice = menu.get(2).getBasePrice();
+        
 
-            sellingPrice3-=changeStep;
+        sellingPrice3-=changeStep;
 
             
-            x3 =  980 + (int) (363 * (  (sellingPrice3-(menu.get(2).getBasePrice()*(1-priceModiefier))) /(menu.get(2).getBasePrice()*(1+priceModiefier) -(menu.get(2).getBasePrice()*(1-priceModiefier)))));
+        x3 =  990 + (int) (350 * (sellingPrice3-basePrice)/(basePrice*(priceModiefier)) ); 
+
+        if (x3<990)
+        {
+            x3=990;
+        }
+        else if (x3>1340)
+        {
+            x3=1340;
+        }
             
-            if (sellingPrice3 < menu.get(2).getBasePrice()*(1-priceModiefier))
-            {
-                x3 = 990;
-                sellingPrice3 = menu.get(2).getBasePrice()*(1-priceModiefier);
-            }
+        if (sellingPrice3 <= basePrice)
+        {
+            x3 = 990;
+            sellingPrice3 = basePrice;
+        } 
 
     }
 
     public void increaseSellingPrice3 ()
     {
         
+        int basePrice = menu.get(2).getBasePrice();
         
-            sellingPrice3+=changeStep;
+
+        sellingPrice3+=changeStep;
 
             
-            x3 =  980 + (int) (363 * (  (sellingPrice3-(menu.get(2).getBasePrice()*(1-priceModiefier))) /(menu.get(2).getBasePrice()*(1+priceModiefier) -(menu.get(2).getBasePrice()*(1-priceModiefier)))));
+        x3 =  990 + (int) (350 * (sellingPrice3-basePrice)/(basePrice*priceModiefier) );
             
+        if (x3<990)
+        {
+            x3=990;
+        }
+        else if (x3>1340)
+        {
+            x3=1340;
+        }
             
-            if (sellingPrice3 > menu.get(2).getBasePrice()*(1.0+priceModiefier))
-            {
-                x3 = 1340;
-                sellingPrice3 = menu.get(2).getBasePrice()*(1.0+priceModiefier);
-            }
+        if (sellingPrice3 >= basePrice*(1+priceModiefier))
+        {
+            x3 = 1340;
+            sellingPrice3 = basePrice*(1+priceModiefier);
+        }
 
     }
 
