@@ -81,6 +81,7 @@ public class PriceManagementMenu extends ScreenAdapter
     private Stage stage;
 
     BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
+    BitmapFont nameFont = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
     String text1;       // These are the Strings used for storing the values of Necessary texts for identifying foods and their names
     String text2;
     String text3;
@@ -101,6 +102,8 @@ public class PriceManagementMenu extends ScreenAdapter
         marker3 = new Texture("marker.png");
         allButtonsClick();  // Makes all buttons pressable and gives them function
         font.getData().setScale(1.8f);      // Answers for the size of the Texts
+        nameFont.getData().setScale(2.3f);
+        nameFont.setColor(Color.BLACK);
 
 
         
@@ -160,6 +163,10 @@ public class PriceManagementMenu extends ScreenAdapter
         
 
         // Answers for display of prices and their change is updated here
+        nameFont.draw(game.batch, menu.get(0).getName(), 440, 684);
+        nameFont.draw(game.batch, menu.get(1).getName(), 440, 525);
+        nameFont.draw(game.batch, menu.get(2).getName(), 440, 370);
+
         font.draw(game.batch, Double.toString( Math.round(sellingPrice1*100.0)/100.0) , 1520,677);
         font.draw(game.batch, Double.toString(Math.round(sellingPrice2*100.0)/100.0) , 1520,520);
         font.draw(game.batch, Double.toString(Math.round(sellingPrice3*100.0)/100.0) , 1520,364);
