@@ -31,11 +31,27 @@ Deniz Şahin CS-102 Project Log
 	-> Learned about JDBC (~ 2h)
 	-> Wrote detailed design parts given to me (~ 1h)
 
-22-28 May (~ 6h)
+22-28 May (~ 14h)
 	23 May (~ 2h)
 		-> Wrote the first version of the Restaurant class (~ 1h)
 		-> Wrote the group meetings and personal log (~ 1h)
 	24 May (~ 4h)
 		-> Created the framework for screens and made changes on base class with group (~ 2h)
 		-> Created endOfDay and PurchaseRestaurant classses with basic framework (~ 2h)
+	25 May (~ 2h)
 		-> Imported the font for use and updated the group and personal logs
+		-> Worked on database creation (~ 2h)
+			-> Downloaded MySQL and learned about creating a connection
+	26 May (~ 4h)
+		-> Created the database and a manual for database creation (~ 2h)
+		-> Worked on the basic screen management methods and display modes (~ 1h)
+		-> Talked with group members on some project specifics (~ 1h)
+		-> Worked on buttons for popup classes (~ 1h)
+	28 May (~ 2h)
+		-> Worked on the PurchaseRestaurant class (~ 1h)
+		-> Worked on the EndOfDayScreen class (~ 1h)
+
+29 May - 4 June (~ 12h)
+	29 May (~12h)
+		-> Worked on some JDBC issues (~ 6h)
+		-> Worked on finishing up classes (~ 6h)
