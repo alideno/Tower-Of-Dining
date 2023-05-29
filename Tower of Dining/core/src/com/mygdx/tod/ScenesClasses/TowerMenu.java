@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.tod.TowerOfDining;
+import com.mygdx.tod.itemClasses.Food;
 import com.mygdx.tod.itemClasses.Restaurant;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -44,7 +45,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurants = new Restaurant[8];
         restaurantButtons = new Button[8];
         forSaleButtons = new Button[7];
-        priceManagementMenu = new PriceManagementMenu(game);
+        priceManagementMenu = new PriceManagementMenu(game, this);
         isOpen = new boolean[7];
         isOpen[0] = false;
         isOpen[1] = false;
@@ -371,7 +372,10 @@ public class TowerMenu extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
 
                 game.closeScreen();
-                game.newScreen(priceManagementMenu);
+                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever"));         // These are temporary examples. Grab foods from restaurant instances if it has such method
+                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
+                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
+                game.setScreen(priceManagementMenu);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }

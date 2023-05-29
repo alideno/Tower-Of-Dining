@@ -45,6 +45,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class PriceManagementMenu extends ScreenAdapter
 {
+    TowerMenu towerMenu;
     Texture priceMenuImg;
     Texture background = new Texture("priceBackground.png");
     private TowerOfDining game;
@@ -91,8 +92,9 @@ public class PriceManagementMenu extends ScreenAdapter
     // the current amount of restaurants is FINAL. This class is  intended to be called as x1, x2, x3 and etc...
     // The .setScreen(new PriceManagerMenu (TowerOfDining tod) ) is NOT the correct use of this class
 
-    public PriceManagementMenu (TowerOfDining tod)
+    public PriceManagementMenu (TowerOfDining tod, TowerMenu towerMenu)
     {
+        this.towerMenu = towerMenu;
         this.game = tod;
         menu = new ArrayList<Food>();
         priceMenuImg = new Texture("price1.png");
@@ -124,7 +126,18 @@ public class PriceManagementMenu extends ScreenAdapter
 
     public void addFoodToMenu (Food food)
     {
+        if (menu.size()<4)
         menu.add(food);
+        
+        if (menu.size()==3)
+        {
+            sellingPrice1 = menu.get(0).getBasePrice();
+            sellingPrice2 = menu.get(1).getBasePrice();
+            sellingPrice3 = menu.get(2).getBasePrice();
+            activateTheStage();
+        }
+
+        
     }
 
     public void setPriceMenuImg (String filename)
@@ -161,15 +174,7 @@ public class PriceManagementMenu extends ScreenAdapter
         stage.draw(); 
     }
 
-    public void generateSliders ()
-    {
-
-        // To use ONLY after the foods were added to the menu
-        sellingPrice1 = menu.get(0).getBasePrice();
-        sellingPrice2 = menu.get(1).getBasePrice();
-        sellingPrice3 = menu.get(2).getBasePrice();
-        activateTheStage();
-    }
+    
 
     public void allButtonsClick ()
     {
@@ -425,7 +430,8 @@ public class PriceManagementMenu extends ScreenAdapter
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new TowerMenu(game));
+                game.setScreen(towerMenu);
+                game.closeScreen();
                 dispose();
             }
 
