@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
@@ -30,6 +31,7 @@ public class TowerMenu extends ScreenAdapter {
     PriceManagementMenu priceManagementMenu;
     Texture towerMenuImg;
     private int totalMoney = 0;
+    private int day = 0;
     public Restaurant[] restaurants;
     private Button[] restaurantButtons;
     private Button[] forSaleButtons;
@@ -71,6 +73,41 @@ public class TowerMenu extends ScreenAdapter {
         restaurants[7] = new Restaurant(11000);
     }
 
+    public void nextDayButton() {
+        TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("salesign.png")));
+        TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("salesign.png")));
+        ButtonStyle buttonStyle = new ButtonStyle();
+        buttonStyle.up = upDrawable;
+        buttonStyle.down = downDrawable;
+        Button nextDayButton = new Button(buttonStyle);
+        nextDayButton.setBounds(1760, 930, 130, 130);
+        nextDayButton.setColor(1, 1, 1, 0);
+        nextDayButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // TODO
+                // TODO
+
+            }
+
+        });
+        nextDayButton.addListener(new InputListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                // Set the cursor to Hand when the mouse enters the button
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                // Restore the default cursor when the mouse exits the button
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
+        stage.addActor(nextDayButton);
+
+    }
+
     public void settingsButton() {
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("salesign.png")));
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("salesign.png")));
@@ -85,7 +122,6 @@ public class TowerMenu extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 // TODO
                 // TODO
-
 
             }
 
@@ -119,11 +155,7 @@ public class TowerMenu extends ScreenAdapter {
         shopButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // TODO
-                // TODO
-                game.closeScreen();
-                game.newScreen(new Shop(game, 0));
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+                handleShopButtonClick();
             }
 
         });
@@ -144,7 +176,13 @@ public class TowerMenu extends ScreenAdapter {
 
     }
 
+    protected void handleShopButtonClick() {
+        game.newScreen(new Shop(game, 0, this));
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+    }
+
     // This method creates 7 "For Sale" buttons and determines what they do
+    // #region @placeForSaleButtons
     public void placeForSaleButtons() {
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("salesign.png")));
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("salesign.png")));
@@ -317,6 +355,7 @@ public class TowerMenu extends ScreenAdapter {
         stage.addActor(forSaleButtons[6]);
         render(5);
     }
+    // #endregion @placeForSaleButtons
 
     public void placeRestaurantButtons() {
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("salesign.png")));
@@ -556,6 +595,11 @@ public class TowerMenu extends ScreenAdapter {
         ScreenUtils.clear(1, 0, 0, 1);
         game.batch.begin();
         game.batch.draw(towerMenuImg, 0, 0);
+        BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
+        font.getData().setScale(1, 1);
+        font.draw(game.batch, "Total Money: " + totalMoney, 80, 1000);
+        font.draw(game.batch, "Day: " + day, 82, 970);
+
         game.batch.end();
 
         for (int i = 0; i < isOpen.length; i++) {
