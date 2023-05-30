@@ -1,0 +1,27 @@
+{
+com.badlogic.gdx.graphics.Color: {
+	RGBA_255_0_0_255: {
+		r: 1
+		g: 1
+		b: 1
+		a: 0
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	red: {
+		name: white-pixel
+		color: RGBA_255_0_0_255
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+	default-horizontal: {
+		parent: default-vertical
+		backgroundOver: Screenshot 2023-05-27 233418
+		backgroundDown: Screenshot 2023-05-27 233418
+		knobAfterOver: red
+		knobAfterDown: red
+		background: Screenshot 2023-05-27 233418
+		knob: Screenshot 2023-05-27 233418
+	}
+}
+}

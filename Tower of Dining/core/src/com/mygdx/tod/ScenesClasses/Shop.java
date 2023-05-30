@@ -47,7 +47,7 @@ public class Shop extends ScreenAdapter  {
         this.totalCost = totalCost;
 
         nextButton = new Button(buttonStyle);
-        nextButton.setColor(1f,1f,1f,0f);
+        nextButton.setColor(1f, 1f, 1f, 0f);
         nextButton.setBounds(1500, 790, 390, 110);
         nextButton.addListener(new ClickListener() {
             @Override
@@ -73,7 +73,7 @@ public class Shop extends ScreenAdapter  {
         });
 
         previousButton = new Button(buttonStyle);
-        previousButton.setColor(1f,1f,1f,0f);
+        previousButton.setColor(1f, 1f, 1f, 0f);
         previousButton.setBounds(1500, 670, 390, 110);
         previousButton.addListener(new ClickListener() {
             @Override
@@ -99,12 +99,12 @@ public class Shop extends ScreenAdapter  {
         });
         backButton = new Button(buttonStyle);
         backButton.setBounds(1100, 920, 750, 120);
-        backButton.setColor(1f,1f,1f,0f);
+        backButton.setColor(1f, 1f, 1f, 0f);
         goBack();
 
         orderButton = new Button(buttonStyle);
         orderButton.setBounds(1100, 60, 520, 120);
-        orderButton.setColor(1f,1f,1f,0f);
+        orderButton.setColor(1f, 1f, 1f, 0f);
         orderButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -152,7 +152,6 @@ public class Shop extends ScreenAdapter  {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 towerMenu.render(1);
-
                 game.closeScreen();
 
             }

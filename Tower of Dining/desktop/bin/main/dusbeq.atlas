@@ -1,0 +1,20 @@
+
+dusbeq.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+white-pixel
+  rotate: false
+  xy: 1, 668
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+Screenshot 2023-05-27 233418
+  rotate: false
+  xy: 1, 671
+  size: 1301, 629
+  orig: 1301, 629
+  offset: 0, 0
+  index: -1
