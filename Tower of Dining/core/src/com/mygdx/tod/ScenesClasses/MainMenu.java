@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.tod.TowerOfDining;
+import com.mygdx.tod.DBRelatedClasses.Leaderboard;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -104,7 +105,9 @@ public class MainMenu extends ScreenAdapter {
         lbButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleLbButtonClick();
+                game.newScreen(new Leaderboard(game));
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+
             }
 
         });

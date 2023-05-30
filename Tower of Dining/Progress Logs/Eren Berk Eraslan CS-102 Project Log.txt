@@ -36,3 +36,14 @@ Eren Berk Eraslan CS-102 Project Log
 	25 May (~ 5.5h)
 		-> Wrote the first version of the MainMenu class (~ 5h)
 		-> Wrote the personal log (~ 0.5h)
+	26 May (~ 3h)
+		-> Wrote the first version of the TowerMenu class (~ 5h)
+	
+29 May-3 Jun (~ 10.5h)
+	28 May (~ 5h)
+		-> Developed the TowerMenu class (~ 5h)
+	29 May (~ 5h)
+		-> Developed the TowerMenu class further (~ 3h)
+	30 May (~ 7h)
+		-> Established JDBC
+		-> Worked on finishing up classes (~ 6h)

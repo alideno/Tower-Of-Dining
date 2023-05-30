@@ -2,6 +2,7 @@ package com.mygdx.tod.ScenesClasses;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.tod.TowerOfDining;
 
-public class Shop extends ScreenAdapter  {
+public class Shop extends ScreenAdapter {
     Texture menuImg;
     private TowerOfDining game;
     private TowerMenu towerMenu;
@@ -28,8 +29,9 @@ public class Shop extends ScreenAdapter  {
     private int currentShop;
     private int[] foodCount = new int[3];
     private Stage stage;
-    private TextField textField1,textField2,textField3;
+    private TextField textField1, textField2, textField3;
     private int totalCost;
+    Sound pageFlip = Gdx.audio.newSound(Gdx.files.internal("pageFlip.mp3"));
 
     public Shop(TowerOfDining game, int currentShop, TowerMenu towerMenu, int totalCost) {// for towermenu class
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
@@ -42,7 +44,7 @@ public class Shop extends ScreenAdapter  {
         this.currentShop = currentShop;
         String temp = "shop menu" + (currentShop + 1) + ".png";
         menuImg = new Texture(temp);
- 
+
         stage = new Stage();
         this.totalCost = totalCost;
 
@@ -52,6 +54,7 @@ public class Shop extends ScreenAdapter  {
         nextButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                pageFlip.play(1);
                 updateTotal();
                 nextClick();
 
@@ -78,6 +81,7 @@ public class Shop extends ScreenAdapter  {
         previousButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                pageFlip.play(1);
                 updateTotal();
                 prevClick();
 
@@ -126,7 +130,8 @@ public class Shop extends ScreenAdapter  {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
-        TextFieldStyle textStyle = new TextFieldStyle(new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt")), Color.BLACK, null, null, null);
+        TextFieldStyle textStyle = new TextFieldStyle(new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt")),
+                Color.BLACK, null, null, null);
         textStyle.font.getData().setScale(3, 3);
         textField1 = new TextField("0", textStyle);
         textField1.setPosition(1250, 600);
@@ -152,6 +157,7 @@ public class Shop extends ScreenAdapter  {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 towerMenu.render(1);
+
                 game.closeScreen();
 
             }
@@ -173,55 +179,53 @@ public class Shop extends ScreenAdapter  {
         });
         render(1);
     }
-    public void updateTotal() throws NumberFormatException{
 
+    public void updateTotal() throws NumberFormatException {
 
-            int one = Integer.parseInt(textField1.getText());  
-            int two = Integer.parseInt(textField2.getText());
-            int three = Integer.parseInt(textField3.getText());
-            foodCount[0] = one;
-            foodCount[1] = two;
-            foodCount[2] = three;
+        int one = Integer.parseInt(textField1.getText());
+        int two = Integer.parseInt(textField2.getText());
+        int three = Integer.parseInt(textField3.getText());
+        foodCount[0] = one;
+        foodCount[1] = two;
+        foodCount[2] = three;
 
-            totalCost =+ towerMenu.getRestaurants()[currentShop].getFoods()[0].getShopPrice()*one
-            +towerMenu.getRestaurants()[currentShop].getFoods()[1].getShopPrice()*two
-            +towerMenu.getRestaurants()[currentShop].getFoods()[2].getShopPrice()*three; 
+        totalCost = +towerMenu.getRestaurants()[currentShop].getFoods()[0].getShopPrice() * one
+                + towerMenu.getRestaurants()[currentShop].getFoods()[1].getShopPrice() * two
+                + towerMenu.getRestaurants()[currentShop].getFoods()[2].getShopPrice() * three;
 
-        }
+    }
 
-
-    public void purchase(){
+    public void purchase() {
         for (int i = 0; i < foodCount.length; i++) {
-            
+
             towerMenu.getRestaurants()[currentShop].getFoods()[i].addStock(foodCount[i]);
-           
+
         }
         towerMenu.reduceMoney(totalCost);
     }
 
-    public void nextClick(){
+    public void nextClick() {
         if (currentShop != 7) {
             game.closeScreen();
-            game.newScreen(new Shop(game, currentShop+1, towerMenu, totalCost));        
+            game.newScreen(new Shop(game, currentShop + 1, towerMenu, totalCost));
             Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         }
 
     }
-    public void prevClick(){
+
+    public void prevClick() {
         if (currentShop != 0) {
             game.closeScreen();
-            game.newScreen(new Shop(game, currentShop-1, towerMenu, totalCost));     
+            game.newScreen(new Shop(game, currentShop - 1, towerMenu, totalCost));
             Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         }
     }
 
-
-
-    public int getCurrentShop(){
+    public int getCurrentShop() {
         return currentShop;
     }
 
-    public int[] getFoodCount(){
+    public int[] getFoodCount() {
         return foodCount;
     }
 
@@ -242,13 +246,13 @@ public class Shop extends ScreenAdapter  {
         BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
         font.getData().setScale(3, 3);
         font.setColor(Color.BLACK);
-        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[0].getStock() + "/40", 400, 700);
-        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[0].getShopPrice() + "", 890, 700);
-        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[1].getStock() + "/40", 400, 510);
-        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[1].getShopPrice() + "", 890, 510);
-        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[2].getStock() + "/40", 400, 320);
-        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[2].getShopPrice() + "", 890, 320);
-        font.draw(game.batch, totalCost+ "", 700, 150);
+        font.draw(game.batch, towerMenu.getRestaurants()[currentShop].getFoods()[0].getStock() + "/40", 400, 700);
+        font.draw(game.batch, towerMenu.getRestaurants()[currentShop].getFoods()[0].getShopPrice() + "", 890, 700);
+        font.draw(game.batch, towerMenu.getRestaurants()[currentShop].getFoods()[1].getStock() + "/40", 400, 510);
+        font.draw(game.batch, towerMenu.getRestaurants()[currentShop].getFoods()[1].getShopPrice() + "", 890, 510);
+        font.draw(game.batch, towerMenu.getRestaurants()[currentShop].getFoods()[2].getStock() + "/40", 400, 320);
+        font.draw(game.batch, towerMenu.getRestaurants()[currentShop].getFoods()[2].getShopPrice() + "", 890, 320);
+        font.draw(game.batch, totalCost + "", 700, 150);
 
         game.batch.end();
 

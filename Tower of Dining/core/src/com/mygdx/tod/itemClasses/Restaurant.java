@@ -1,5 +1,7 @@
 package com.mygdx.tod.itemClasses;
 
+import com.mygdx.tod.ScenesClasses.TowerMenu;
+
 /**
  * This class represents a restaurant and manages the functionality of a
  * restaurant.
@@ -15,9 +17,11 @@ public class Restaurant {
     // defining the restaurant related variables
     private boolean isOpen; // is restaurant open
     private int purchasePrice; // the purchase price of the restaurant
+    private TowerMenu towerMenu;
 
     // constructor
-    public Restaurant(int purchasePrice) {
+    public Restaurant(int purchasePrice, TowerMenu towerMenu) {
+        this.towerMenu = towerMenu;
         foods = new Food[3];
         addedFoods = 0;
         isOpen = false;
@@ -57,10 +61,11 @@ public class Restaurant {
             for (int i = 0; i < 3; i++) {
                 if (foods != null) {
                     int customers = foods[i].calculateCustomers();
-                    earning += (this.foods[i].getSellPrice() * customers);
+                    earning += (this.foods[i].getSellPrice() * customers) - 100;
                 }
             }
         }
+        towerMenu.addMoney(earning);
         return earning;
     }
 

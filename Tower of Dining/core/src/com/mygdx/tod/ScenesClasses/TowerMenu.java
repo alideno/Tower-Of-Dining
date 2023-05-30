@@ -49,10 +49,12 @@ public class TowerMenu extends ScreenAdapter {
     public Button[] forSaleButtons;
     private static boolean[] isOpen;
     Sound soundPurchaseRes = Gdx.audio.newSound(Gdx.files.internal("soundPurchaseRes.wav"));
+    Sound coinDrop = Gdx.audio.newSound(Gdx.files.internal("coinDrop.mp3"));
+
     private Stage stage;
     int n = 0;
     ArrayList<Customer> customers = new ArrayList<Customer>();
-    Customer customer1 = new Customer(1);
+    Customer customer1 = new Customer(0);
 
     public TowerMenu(TowerOfDining game) {
         towerMenu = this;
@@ -87,46 +89,30 @@ public class TowerMenu extends ScreenAdapter {
     }
 
     public void defineRestaurants() {
-        restaurants[0] = new Restaurant(2000);
-        restaurants[0].addFoodItem(new Food(15, "Burger"));
+        restaurants[0] = new Restaurant(2000, this);
+        restaurants[0].addFoodItem(new Food(10, "Burger"));
         restaurants[0].addFoodItem(new Food(10, "Fries"));
         restaurants[0].addFoodItem(new Food(20, "Drink"));
 
-        restaurants[1] = new Restaurant(5000);
+        restaurants[1] = new Restaurant(5000, this);
         restaurants[1].addFoodItem(new Food(15, "Fried Chicken"));
         restaurants[1].addFoodItem(new Food(10, "Bucket"));
         restaurants[1].addFoodItem(new Food(20, "Sauce"));
 
-        restaurants[2] = new Restaurant(6000);
+        restaurants[2] = new Restaurant(6000, this);
         restaurants[2].addFoodItem(new Food(15, "Doner"));
         restaurants[2].addFoodItem(new Food(10, "Bread"));
         restaurants[2].addFoodItem(new Food(20, "Ayran"));
 
-        restaurants[3] = new Restaurant(7000);
+        restaurants[3] = new Restaurant(7000, this);
         restaurants[3].addFoodItem(new Food(15, "Coffee"));
         restaurants[3].addFoodItem(new Food(10, "Ice Coffee"));
         restaurants[3].addFoodItem(new Food(20, "Milked Coffee"));
 
-        restaurants[4] = new Restaurant(8000);
-        restaurants[4].addFoodItem(new Food(15, "Sandwich"));
-        restaurants[4].addFoodItem(new Food(10, "Wrap"));
-        restaurants[4].addFoodItem(new Food(20, "Toast"));
-
-        restaurants[5] = new Restaurant(8000);
-        restaurants[5].addFoodItem(new Food(15, "Pepperoni P"));
-        restaurants[5].addFoodItem(new Food(10, "Vegi Pizza"));
-        restaurants[5].addFoodItem(new Food(20, "Cheese Pizza"));
-
-        restaurants[6] = new Restaurant(8000);
-        restaurants[6].addFoodItem(new Food(15, "Cake"));
-        restaurants[6].addFoodItem(new Food(10, "Cookie"));
-        restaurants[6].addFoodItem(new Food(20, "Ekler"));
-
-        restaurants[7] = new Restaurant(8000);
-        restaurants[7].addFoodItem(new Food(15, "Sushi"));
-        restaurants[7].addFoodItem(new Food(10, "Tempura Roll"));
-        restaurants[7].addFoodItem(new Food(20, "Nigiri"));
-
+        restaurants[4] = new Restaurant(8000, this);
+        restaurants[5] = new Restaurant(9000, this);
+        restaurants[6] = new Restaurant(10000, this);
+        restaurants[7] = new Restaurant(11000, this);
     }
 
     public void nextDayButton() {
@@ -141,6 +127,7 @@ public class TowerMenu extends ScreenAdapter {
         nextDayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                coinDrop.play(1);
                 day++;
                 if (day == 10) {
                     game.newScreen(new NameEntry(game, towerMenu));
@@ -148,9 +135,7 @@ public class TowerMenu extends ScreenAdapter {
                     game.newScreen(new EndOfDayScreen(game, towerMenu));
                     Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
                 }
-
             }
-
         });
         nextDayButton.addListener(new InputListener() {
             @Override
@@ -750,8 +735,6 @@ public class TowerMenu extends ScreenAdapter {
             n = 0;
         }
         n++;
-
-        System.out.println(customer1.getX()); 
     }
     // #endregion
 
