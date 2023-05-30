@@ -26,12 +26,12 @@ public class Shop extends ScreenAdapter  {
     private TowerMenu towerMenu;
     private Button nextButton, previousButton, orderButton, backButton;
     private int currentShop;
-    private int[] foodCount = new int[24];
+    private int[] foodCount = new int[3];
     private Stage stage;
     private TextField textField1,textField2,textField3;
     private int totalCost;
 
-    public Shop(TowerOfDining game, int currentShop, int[]foodCount, TowerMenu towerMenu, int totalCost) {// for towermenu class
+    public Shop(TowerOfDining game, int currentShop, TowerMenu towerMenu, int totalCost) {// for towermenu class
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         ButtonStyle buttonStyle = new ButtonStyle();
@@ -42,7 +42,7 @@ public class Shop extends ScreenAdapter  {
         this.currentShop = currentShop;
         String temp = "shop menu" + (currentShop + 1) + ".png";
         menuImg = new Texture(temp);
-        this.foodCount = foodCount;
+ 
         stage = new Stage();
         this.totalCost = totalCost;
 
@@ -108,8 +108,8 @@ public class Shop extends ScreenAdapter  {
         orderButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                updateTotal();
                 purchase();
-                goBack();
             }
 
         });
@@ -179,9 +179,9 @@ public class Shop extends ScreenAdapter  {
             int one = Integer.parseInt(textField1.getText());  
             int two = Integer.parseInt(textField2.getText());
             int three = Integer.parseInt(textField3.getText());
-            foodCount[currentShop*3] = one;
-            foodCount[currentShop*3 +1 ] = two;
-            foodCount[currentShop*3 + 2] = three;
+            foodCount[0] = one;
+            foodCount[1] = two;
+            foodCount[2] = three;
 
             totalCost =+ towerMenu.getRestaurants()[currentShop].getFoods()[0].getShopPrice()*one
             +towerMenu.getRestaurants()[currentShop].getFoods()[1].getShopPrice()*two
@@ -191,30 +191,26 @@ public class Shop extends ScreenAdapter  {
 
 
     public void purchase(){
-        for (int i = 0; i < towerMenu.getRestaurants().length; i++) {
-            for (int j = 0; j < 3; j++) {
-                towerMenu.getRestaurants()[i].getFoods()[j].addStock(foodCount[i*3+j]);
-            }
+        for (int i = 0; i < foodCount.length; i++) {
+            
+            towerMenu.getRestaurants()[currentShop].getFoods()[i].addStock(foodCount[i]);
+           
         }
         towerMenu.reduceMoney(totalCost);
     }
 
     public void nextClick(){
-        int currentShop = getCurrentShop();
-        int[] foodCount = getFoodCount();
         if (currentShop != 7) {
             game.closeScreen();
-            game.newScreen(new Shop(game, currentShop+1,foodCount, towerMenu, totalCost));        
+            game.newScreen(new Shop(game, currentShop+1, towerMenu, totalCost));        
             Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         }
 
     }
     public void prevClick(){
-        int currentShop = getCurrentShop();
-        int[] foodCount = getFoodCount();
         if (currentShop != 0) {
             game.closeScreen();
-            game.newScreen(new Shop(game, currentShop-1, foodCount, towerMenu, totalCost));     
+            game.newScreen(new Shop(game, currentShop-1, towerMenu, totalCost));     
             Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         }
     }

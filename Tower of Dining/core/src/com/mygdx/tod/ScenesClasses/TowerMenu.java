@@ -88,9 +88,9 @@ public class TowerMenu extends ScreenAdapter {
 
     public void defineRestaurants() {
         restaurants[0] = new Restaurant(2000);
-        restaurants[0].addFoodItem(new Food(10, "Burger"));
+        restaurants[0].addFoodItem(new Food(15, "Burger"));
         restaurants[0].addFoodItem(new Food(10, "Fries"));
-        restaurants[0].addFoodItem(new Food(10, "Drink"));
+        restaurants[0].addFoodItem(new Food(20, "Drink"));
 
         restaurants[1] = new Restaurant(5000);
         restaurants[1].addFoodItem(new Food(15, "Fried Chicken"));
@@ -238,11 +238,11 @@ public class TowerMenu extends ScreenAdapter {
     }
 
     protected void handleShopButtonClick() {
-        int[] foods = new int[24];
+        int[] foods = new int[3];
         for (int i = 0; i < foods.length; i++) {
             foods[i] = 0;
         }
-        game.newScreen(new Shop(game, 0, foods, this, 0));
+        game.newScreen(new Shop(game, 0, this, 0));
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
     }
 

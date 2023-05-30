@@ -46,12 +46,12 @@ public class Food {
         }
     }
 
-    public int getStock(){
+    public int  getStock(){
         return currentStock;
     }
 
     public void addStock(int change){
-        currentStock =+ change;
+        currentStock = currentStock +  change;
         if (currentStock > maxStock) {
             currentStock = maxStock;
         }
