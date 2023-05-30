@@ -698,19 +698,19 @@ public class PriceManagementMenu extends ScreenAdapter
     {
         // towerMenu.restaurants[0].
     }
-    public double getSellPrice1 ()
+    public int getSellPrice1 ()
     {
-        return sellingPrice1;
+        return (int) sellingPrice1;
     }
 
-    public double getSellPrice2 ()
+    public int getSellPrice2 ()
     {
-        return sellingPrice2;
+        return (int) sellingPrice2;
     }
 
-    public double getSellPrice3 ()
+    public int getSellPrice3 ()
     {
-        return sellingPrice3;
+        return (int) sellingPrice3;
     }
 
     public void show() {

@@ -88,6 +88,12 @@ public class Restaurant {
         return this.isOpen;
     }
 
+    public void setFoodsSellingPrices (int a, int b, int c)
+    {
+        foods[0].setPrice(a);
+        foods[1].setPrice(b);
+        foods[2].setPrice(c);
+    }
     public Food[] getFoods() {
         return foods;
     }

@@ -520,8 +520,9 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[0]);
-                restaurants[0].setFoodsSellingPrices(priceManagementMenus[0].getSellPrice1(), priceManagementMenus[0].getSellPrice2(), priceManagementMenus[0].getSellPrice3());
-                System.out.println(priceManagementMenu.getSellPrice1());
+                System.out.println();
+                System.out.println(priceManagementMenus[0].getSellPrice1());
+                
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
             }
@@ -785,7 +786,7 @@ public class TowerMenu extends ScreenAdapter {
             n=0;
         }
         n++;
-        System.out.println(n);
+        
     }
     // #endregion
 
@@ -794,8 +795,7 @@ public class TowerMenu extends ScreenAdapter {
         java.util.Random random = new java.util.Random();
         int rand = random.nextInt(8);
 
-        System.out.println(rand);
-        System.out.println(isOpen[rand]);
+        
         if (isOpen[rand]==true)
         {
                 customers.add(new Customer(rand+1));
@@ -813,8 +813,24 @@ public class TowerMenu extends ScreenAdapter {
         isOpen[restaurantNumber] = true;
     }
 
+    public void setFoodsSellingPrices ()
+    {
+        restaurants[0].setFoodsSellingPrices(priceManagementMenus[0].getSellPrice1(), priceManagementMenus[0].getSellPrice2(), priceManagementMenus[0].getSellPrice3());
+        restaurants[1].setFoodsSellingPrices(priceManagementMenus[1].getSellPrice1(), priceManagementMenus[1].getSellPrice2(), priceManagementMenus[1].getSellPrice3());
+        restaurants[2].setFoodsSellingPrices(priceManagementMenus[2].getSellPrice1(), priceManagementMenus[2].getSellPrice2(), priceManagementMenus[2].getSellPrice3());
+        restaurants[3].setFoodsSellingPrices(priceManagementMenus[3].getSellPrice1(), priceManagementMenus[3].getSellPrice2(), priceManagementMenus[3].getSellPrice3());
+        restaurants[4].setFoodsSellingPrices(priceManagementMenus[4].getSellPrice1(), priceManagementMenus[4].getSellPrice2(), priceManagementMenus[4].getSellPrice3());
+        restaurants[5].setFoodsSellingPrices(priceManagementMenus[5].getSellPrice1(), priceManagementMenus[5].getSellPrice2(), priceManagementMenus[5].getSellPrice3());
+        restaurants[6].setFoodsSellingPrices(priceManagementMenus[6].getSellPrice1(), priceManagementMenus[6].getSellPrice2(), priceManagementMenus[6].getSellPrice3());
+        restaurants[7].setFoodsSellingPrices(priceManagementMenus[7].getSellPrice1(), priceManagementMenus[7].getSellPrice2(), priceManagementMenus[7].getSellPrice3());
+        
+    }
+
     @Override
     public void render(float delta) {
+
+        setFoodsSellingPrices();
+        System.out.println(restaurants[0].getFoods()[0].getSellPrice());
         ScreenUtils.clear(1, 0, 0, 1);
         game.batch.begin();
         game.batch.draw(towerMenuImg, 0, 0);
