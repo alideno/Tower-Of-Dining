@@ -47,6 +47,7 @@ public class PriceManagementMenu extends ScreenAdapter
 {
     TowerMenu towerMenu;
     Texture priceMenuImg;
+    String priceMenuImgString;
     Texture background = new Texture("priceBackground.png");
     private TowerOfDining game;
     Window priceMenu;
@@ -96,12 +97,12 @@ public class PriceManagementMenu extends ScreenAdapter
         this.towerMenu = towerMenu;
         this.game = tod;
         menu = new ArrayList<Food>();
-        priceMenuImg = new Texture("price1.png");
+        setPriceMenuImg("price1.png");
         marker1 = new Texture("marker.png");
         marker2 = new Texture("marker.png");
         marker3 = new Texture("marker.png");
         allButtonsClick();  // Makes all buttons pressable and gives them function
-        font.getData().setScale(1.8f);      // Answers for the size of the Texts
+        font.getData().setScale(1.7f);      // Answers for the size of the Texts
         nameFont.getData().setScale(2.3f);
         nameFont.setColor(Color.BLACK);
 
@@ -145,6 +146,7 @@ public class PriceManagementMenu extends ScreenAdapter
     {
         // For setting different layouts for restaurants
         this.priceMenuImg = new Texture(filename);
+        this.priceMenuImgString = filename;
     }
 
     public void render(float delta) 
@@ -167,9 +169,9 @@ public class PriceManagementMenu extends ScreenAdapter
         nameFont.draw(game.batch, menu.get(1).getName(), 440, 525);
         nameFont.draw(game.batch, menu.get(2).getName(), 440, 370);
 
-        font.draw(game.batch, Double.toString( Math.round(sellingPrice1*100.0)/100.0) , 1520,677);
-        font.draw(game.batch, Double.toString(Math.round(sellingPrice2*100.0)/100.0) , 1520,520);
-        font.draw(game.batch, Double.toString(Math.round(sellingPrice3*100.0)/100.0) , 1520,364);
+        font.draw(game.batch, Double.toString( Math.round(sellingPrice1*100.0)/100.0) , 1515,677);
+        font.draw(game.batch, Double.toString(Math.round(sellingPrice2*100.0)/100.0) , 1515,520);
+        font.draw(game.batch, Double.toString(Math.round(sellingPrice3*100.0)/100.0) , 1515,364);
         
         
         game.batch.end();
@@ -220,11 +222,11 @@ public class PriceManagementMenu extends ScreenAdapter
 
         sliderZone1 = new Button(buttonStyle);
         sliderZone1.setColor(Color.RED);
-        sliderZone1.setBounds(980, 630,363, 40);
+        sliderZone1.setBounds(980, 630,373, 40);
 
         sliderZone2 = new Button(buttonStyle);
         sliderZone2.setColor(Color.RED);
-        sliderZone2.setBounds(980, 477,363, 40);
+        sliderZone2.setBounds(980, 477,373, 40);
 
         sliderZone3 = new Button(buttonStyle);
         sliderZone3.setColor(Color.RED);
@@ -493,6 +495,7 @@ public class PriceManagementMenu extends ScreenAdapter
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                assignSellingPrices();
                 game.setScreen(towerMenu);
                 dispose();
                 
@@ -691,6 +694,10 @@ public class PriceManagementMenu extends ScreenAdapter
     }
 
 
+    public void assignSellingPrices ()
+    {
+        // towerMenu.restaurants[0].
+    }
     public double getSellPrice1 ()
     {
         return sellingPrice1;
