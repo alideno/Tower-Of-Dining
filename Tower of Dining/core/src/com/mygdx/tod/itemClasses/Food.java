@@ -1,7 +1,7 @@
 package com.mygdx.tod.itemClasses;
 
 public class Food {
-    private int sellPrice, basePrice, currentStock;
+    private int sellPrice, basePrice, currentStock, shopPrice;
     private final int maxStock = 40;
     private String name;
 
@@ -10,6 +10,7 @@ public class Food {
         this.basePrice = basePrice;
         currentStock = maxStock;
         sellPrice = basePrice;
+        shopPrice = basePrice/2;
     }
 
     public String getName() {
@@ -32,4 +33,11 @@ public class Food {
         return 0;
     }
 
+    public int getStock(){
+        return currentStock;
+    }
+
+    public int getShopPrice(){
+        return shopPrice;
+    }
 }

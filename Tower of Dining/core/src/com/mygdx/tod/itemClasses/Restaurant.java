@@ -84,5 +84,9 @@ public class Restaurant {
         return this.isOpen;
     }
 
+    public Food[] getFoods() {
+        return foods;
+    }
+
     //#endregion
 }

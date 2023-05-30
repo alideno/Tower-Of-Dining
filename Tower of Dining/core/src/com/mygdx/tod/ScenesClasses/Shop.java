@@ -2,23 +2,27 @@ package com.mygdx.tod.ScenesClasses;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.tod.TowerOfDining;
 
-public class Shop extends ScreenAdapter {
+public class Shop extends ScreenAdapter implements TextInputListener {
     Texture menuImg;
     private TowerOfDining game;
     private TowerMenu towerMenu;
@@ -26,8 +30,9 @@ public class Shop extends ScreenAdapter {
     private int currentShop;
     int[] foodCount;
     private Stage stage;
+    private TextField textField1,textField2,textField3;
 
-    public Shop(TowerOfDining game, int currentShopx, TowerMenu towerMenu) {// for towermenu class
+    public Shop(TowerOfDining game, int currentShop, TowerMenu towerMenu) {// for towermenu class
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         ButtonStyle buttonStyle = new ButtonStyle();
@@ -96,10 +101,40 @@ public class Shop extends ScreenAdapter {
         backButton = new Button(buttonStyle);
         backButton.setBounds(1100, 920, 750, 120);
         backButton.setColor(1f,1f,1f,0f);
+        goBack();
+
+        orderButton = new Button(buttonStyle);
+        orderButton.setBounds(1100, 60, 520, 120);
+        orderButton.setColor(1f,1f,1f,0f);
+        orderButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                //TODO
+
+            }
+
+        });
+        orderButton.addListener(new InputListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                // Set the cursor to Hand when the mouse enters the button
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                // Restore the default cursor when the mouse exits the button
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
+
+
         stage.addActor(nextButton);
         stage.addActor(previousButton);
         stage.addActor(backButton);
-        goBack();
+        stage.addActor(orderButton);
+        
+
     }
 
     public void goBack() {
@@ -132,7 +167,6 @@ public class Shop extends ScreenAdapter {
 
     public void nextClick(){
         if (currentShop != 7) {
-            render(currentShop);
             game.closeScreen();
             game.newScreen(new Shop(game, currentShop+1, foodCount));
             Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
@@ -161,6 +195,15 @@ public class Shop extends ScreenAdapter {
         ScreenUtils.clear(1, 0, 0, 1);
         game.batch.begin();
         game.batch.draw(menuImg, 0, 0);
+        BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
+        font.getData().setScale(3, 3);
+        font.setColor(Color.BLACK);
+        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[0].getStock() + "/40", 400, 700);
+        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[0].getShopPrice() + "", 890, 700);
+        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[1].getStock() + "/40", 400, 510);
+        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[1].getShopPrice() + "", 890, 510);
+        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[2].getStock() + "/40", 400, 320);
+        font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[2].getShopPrice() + "", 890, 320);
         game.batch.end();
 
         stage.act(delta);
@@ -170,6 +213,18 @@ public class Shop extends ScreenAdapter {
     @Override
     public void dispose() {
         stage.dispose();
+    }
+
+    @Override
+    public void input(String text) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'input'");
+    }
+
+    @Override
+    public void canceled() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'canceled'");
     }
 
 }

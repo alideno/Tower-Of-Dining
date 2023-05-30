@@ -41,6 +41,8 @@ public class TowerMenu extends ScreenAdapter {
     private int day = 0;
     public Restaurant[] restaurants;
     private Button[] restaurantButtons;
+
+
     private Button[] forSaleButtons;
     private static boolean[] isOpen;
     private Stage stage;
@@ -77,6 +79,11 @@ public class TowerMenu extends ScreenAdapter {
 
     public void defineRestaurants() {
         restaurants[0] = new Restaurant(2000);
+        restaurants[0].addFoodItem(new Food(100, "Burger"));
+        restaurants[0].addFoodItem(new Food(10, "Fries"));
+        restaurants[0].addFoodItem(new Food(10, "Drink"));
+        
+
         restaurants[1] = new Restaurant(5000);
         restaurants[2] = new Restaurant(6000);
         restaurants[3] = new Restaurant(7000);
@@ -602,6 +609,10 @@ public class TowerMenu extends ScreenAdapter {
 
     public int getMoney() {
         return totalMoney;
+    }
+    
+    public Restaurant[] getRestaurants() {
+        return restaurants;
     }
 
     @Override
