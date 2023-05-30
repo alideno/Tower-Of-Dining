@@ -8,7 +8,7 @@ public class Food {
     public Food(int basePrice, String name) {
         this.name = name;
         this.basePrice = basePrice;
-        currentStock = maxStock;
+        currentStock = maxStock/2;
         sellPrice = basePrice;
         shopPrice = basePrice/2;
     }
@@ -48,6 +48,19 @@ public class Food {
 
     public int getStock(){
         return currentStock;
+    }
+
+    public void addStock(int change){
+        currentStock =+ change;
+        if (currentStock > maxStock) {
+            currentStock = maxStock;
+        }
+    }
+    public void removeStock(int change){
+        currentStock =- change;
+        if (currentStock < 0) {
+            currentStock = 0;
+        }
     }
 
     public int getShopPrice(){
