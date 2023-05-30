@@ -18,13 +18,14 @@ import com.mygdx.tod.itemClasses.Restaurant;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * This is a class representing the popup that prompts the user about purchasing a restaurant
+ * This is a class representing the popup that prompts the user about purchasing
+ * a restaurant
  * 
  * @author Deniz Şahin
  */
-public class PurchaseRestaurant extends PopUp{
+public class PurchaseRestaurant extends PopUp {
 
-    //defining the variables
+    // defining the variables
     private boolean purchasable;
     private Restaurant restaurant;
     private TowerMenu towerMenu;
@@ -37,29 +38,26 @@ public class PurchaseRestaurant extends PopUp{
      * The constructor of the restaurant purchase popup
      * 
      * Selects the version based on the amount user has
-     * @param game the game
+     * 
+     * @param game       the game
      * @param restaurant the restaurant ready for purchase
      */
-    public PurchaseRestaurant(TowerOfDining game, Restaurant restaurant, TowerMenu towerMenu, int restaurantNumber)
-    {
+    public PurchaseRestaurant(TowerOfDining game, Restaurant restaurant, TowerMenu towerMenu, int restaurantNumber) {
         super(game);
-        
+
         this.restaurant = restaurant;
         this.towerMenu = towerMenu;
         this.restaurantNumber = restaurantNumber;
 
         purchasable = (towerMenu.getMoney() >= restaurant.getPrice());
 
-        if(purchasable)
-        {
+        if (purchasable) {
             popupTexture = new Texture(Gdx.files.internal("restaurant buy.png"));
-        }
-        else
-        {
+        } else {
             popupTexture = new Texture(Gdx.files.internal("restaurant buy2.png"));
         }
 
-        //code fragment taken from MainMenu class
+        // code fragment taken from MainMenu class
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         ButtonStyle buttonStyle = new ButtonStyle();
@@ -68,8 +66,8 @@ public class PurchaseRestaurant extends PopUp{
 
         noButton = new Button(buttonStyle);
         noButton.setColor(1f, 1f, 1f, 0f);
-        noButton.setBounds(1080, 465, 210,85);
-        
+        noButton.setBounds(1080, 465, 210, 85);
+
         noButton.addListener(new noButtonListener());
 
         noButton.addListener(new InputListener() {
@@ -77,7 +75,7 @@ public class PurchaseRestaurant extends PopUp{
                 // Set the cursor to Hand when the mouse enters the button
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
             }
-        
+
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                 // Restore the default cursor when the mouse exits the button
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
@@ -87,12 +85,11 @@ public class PurchaseRestaurant extends PopUp{
         buttonStage = new Stage();
         buttonStage.addActor(noButton);
 
-        if(purchasable)
-        {
+        if (purchasable) {
             yesButton = new Button(buttonStyle);
             yesButton.setColor(1f, 1f, 1f, 0f);
-            yesButton.setBounds(630, 465, 210,85);
-            
+            yesButton.setBounds(630, 465, 210, 85);
+
             yesButton.addListener(new yesButtonListener());
 
             yesButton.addListener(new InputListener() {
@@ -100,7 +97,7 @@ public class PurchaseRestaurant extends PopUp{
                     // Set the cursor to Hand when the mouse enters the button
                     Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
                 }
-            
+
                 public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                     // Restore the default cursor when the mouse exits the button
                     Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
@@ -119,30 +116,33 @@ public class PurchaseRestaurant extends PopUp{
      */
     public void render(float delta) {
         game.batch.begin();
-                
-		game.batch.draw(popupTexture, 0, 0);
+
+        game.batch.draw(popupTexture, 0, 0);
 
         BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
         font.getData().setScale(3f);
         font.draw(game.batch, "" + restaurant.getPrice(), 800, 710);
-        
-		game.batch.end();
+
+        game.batch.end();
 
         buttonStage.act(delta);
         buttonStage.draw();
     }
 
-    private class noButtonListener extends ClickListener{
+    private class noButtonListener extends ClickListener {
         public void clicked(InputEvent event, float x, float y) {
-                game.closeScreen();
+            game.closeScreen();
         }
     }
 
-    private class yesButtonListener extends ClickListener{
+    private class yesButtonListener extends ClickListener {
         public void clicked(InputEvent event, float x, float y) {
             restaurant.openRestaurant();
             towerMenu.reduceMoney(restaurant.getPrice());
             towerMenu.setOpen(restaurantNumber);
+            towerMenu.forSaleButtons[restaurantNumber].remove();
+            towerMenu.restaurantButtons[restaurantNumber].setVisible(true);
+            game.closeScreen();
         }
     }
 
@@ -152,4 +152,3 @@ public class PurchaseRestaurant extends PopUp{
         super.dispose();
     }
 }
-
