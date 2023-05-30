@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -19,6 +21,8 @@ import com.mygdx.tod.TowerOfDining;
 import com.mygdx.tod.itemClasses.Customer;
 import com.mygdx.tod.itemClasses.Food;
 import com.mygdx.tod.ScenesClasses.PopUpClasses.EndOfDayScreen;
+import com.mygdx.tod.ScenesClasses.PopUpClasses.NameEntry;
+import com.mygdx.tod.ScenesClasses.PopUpClasses.PurchaseRestaurant;
 import com.mygdx.tod.itemClasses.Restaurant;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -36,37 +40,38 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 public class TowerMenu extends ScreenAdapter {
     TowerOfDining game;
     PriceManagementMenu priceManagementMenu;
+    private TowerMenu towerMenu;
     Texture towerMenuImg;
-    private int totalMoney = 0;
+    private int totalMoney = 1000000;
     private int day = 0;
     public Restaurant[] restaurants;
-    private Button[] restaurantButtons;
-
-
-    private Button[] forSaleButtons;
+    public Button[] restaurantButtons;
+    public Button[] forSaleButtons;
     private static boolean[] isOpen;
+    Sound soundPurchaseRes = Gdx.audio.newSound(Gdx.files.internal("soundPurchaseRes.wav"));
     private Stage stage;
     int n = 0;
-    // ArrayList<Customer> customers = new ArrayList<Customer>();
-    // Customer customer1 = new Customer(0);
-    
+    ArrayList<Customer> customers = new ArrayList<Customer>();
+    Customer customer1 = new Customer(0);
 
     public TowerMenu(TowerOfDining game) {
-        // customers.add(customer1);
+        towerMenu = this;
+        customers.add(customer1);
         this.game = game;
         towerMenuImg = new Texture("tower.png");
         restaurants = new Restaurant[8];
         restaurantButtons = new Button[8];
-        forSaleButtons = new Button[7];
+        forSaleButtons = new Button[8];
         priceManagementMenu = new PriceManagementMenu(game, this);
-        isOpen = new boolean[7];
-        isOpen[0] = false;
+        isOpen = new boolean[8];
+        isOpen[0] = true;
         isOpen[1] = false;
         isOpen[2] = false;
         isOpen[3] = false;
         isOpen[4] = false;
         isOpen[5] = false;
         isOpen[6] = false;
+        isOpen[7] = false;
 
         stage = new Stage();
         defineRestaurants();
@@ -75,6 +80,10 @@ public class TowerMenu extends ScreenAdapter {
         shopButton();
         nextDayButton();
         settingsButton();
+        forSaleButtons[0].remove();
+        for (int index = 0; index < restaurantButtons.length - 1; index++) {
+            restaurantButtons[index + 1].setVisible(false);
+        }
     }
 
     public void defineRestaurants() {
@@ -82,7 +91,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurants[0].addFoodItem(new Food(100, "Burger"));
         restaurants[0].addFoodItem(new Food(10, "Fries"));
         restaurants[0].addFoodItem(new Food(10, "Drink"));
-        
+
         restaurants[1] = new Restaurant(5000);
         restaurants[1].addFoodItem(new Food(15, "Fried Chicken"));
         restaurants[1].addFoodItem(new Food(10, "Bucket"));
@@ -108,8 +117,13 @@ public class TowerMenu extends ScreenAdapter {
         nextDayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.newScreen(new EndOfDayScreen(game));
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+                day++;
+                if (day == 10) {
+                    game.newScreen(new NameEntry(game, towerMenu));
+                } else {
+                    game.newScreen(new EndOfDayScreen(game, towerMenu));
+                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+                }
 
             }
 
@@ -213,32 +227,16 @@ public class TowerMenu extends ScreenAdapter {
         buttonStyle.up = upDrawable;
         buttonStyle.down = downDrawable;
         forSaleButtons[0] = new Button(buttonStyle);
-        forSaleButtons[0].setBounds(645, 285, 310, 140);
-        forSaleButtons[0].addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-            }
-
-        });
-        forSaleButtons[0].addListener(new InputListener() {
-            @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                // Set the cursor to Hand when the mouse enters the button
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
-            }
-
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                // Restore the default cursor when the mouse exits the button
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-            }
-        });
+        forSaleButtons[0].setBounds(325, 285, 310, 140);
 
         forSaleButtons[1] = new Button(buttonStyle);
-        forSaleButtons[1].setBounds(325, 445, 310, 150);
+        forSaleButtons[1].setBounds(645, 285, 310, 140);
         forSaleButtons[1].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.newScreen(new PurchaseRestaurant(game, restaurants[1], towerMenu, 1));
+                soundPurchaseRes.play(1);
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -257,10 +255,13 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         forSaleButtons[2] = new Button(buttonStyle);
-        forSaleButtons[2].setBounds(645, 445, 310, 150);
+        forSaleButtons[2].setBounds(325, 445, 310, 150);
         forSaleButtons[2].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.newScreen(new PurchaseRestaurant(game, restaurants[2], towerMenu, 2));
+                soundPurchaseRes.play(1);
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -279,11 +280,13 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         forSaleButtons[3] = new Button(buttonStyle);
-        forSaleButtons[3].setBounds(325, 605, 310, 150);
+        forSaleButtons[3].setBounds(645, 445, 310, 150);
         forSaleButtons[3].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                game.newScreen(new PurchaseRestaurant(game, restaurants[3], towerMenu, 3));
+                soundPurchaseRes.play(1);
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -302,11 +305,13 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         forSaleButtons[4] = new Button(buttonStyle);
-        forSaleButtons[4].setBounds(645, 605, 310, 150);
+        forSaleButtons[4].setBounds(325, 605, 310, 150);
         forSaleButtons[4].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                game.newScreen(new PurchaseRestaurant(game, restaurants[4], towerMenu, 4));
+                soundPurchaseRes.play(1);
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -325,11 +330,13 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         forSaleButtons[5] = new Button(buttonStyle);
-        forSaleButtons[5].setBounds(325, 765, 310, 150);
+        forSaleButtons[5].setBounds(645, 605, 310, 150);
         forSaleButtons[5].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                game.newScreen(new PurchaseRestaurant(game, restaurants[5], towerMenu, 5));
+                soundPurchaseRes.play(1);
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -348,14 +355,42 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         forSaleButtons[6] = new Button(buttonStyle);
-        forSaleButtons[6].setBounds(645, 765, 310, 150);
+        forSaleButtons[6].setBounds(325, 765, 310, 150);
         forSaleButtons[6].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.newScreen(new PurchaseRestaurant(game, restaurants[6], towerMenu, 6));
+                soundPurchaseRes.play(1);
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
         forSaleButtons[6].addListener(new InputListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                // Set the cursor to Hand when the mouse enters the button
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                // Restore the default cursor when the mouse exits the button
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
+
+        forSaleButtons[7] = new Button(buttonStyle);
+        forSaleButtons[7].setBounds(645, 765, 310, 150);
+        forSaleButtons[7].addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.newScreen(new PurchaseRestaurant(game, restaurants[7], towerMenu, 7));
+                soundPurchaseRes.play(1);
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+
+        });
+        forSaleButtons[7].addListener(new InputListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 // Set the cursor to Hand when the mouse enters the button
@@ -376,10 +411,12 @@ public class TowerMenu extends ScreenAdapter {
         stage.addActor(forSaleButtons[4]);
         stage.addActor(forSaleButtons[5]);
         stage.addActor(forSaleButtons[6]);
+        stage.addActor(forSaleButtons[7]);
         render(5);
     }
     // #endregion @placeForSaleButtons
 
+    // #region placeRestaurantButtons
     public void placeRestaurantButtons() {
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("salesign.png")));
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("salesign.png")));
@@ -397,12 +434,12 @@ public class TowerMenu extends ScreenAdapter {
                                                                             // method
                 priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
                 priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                priceManagementMenu.setPriceMenuImg("price1.png");  // Must add respective texture for each Price Mangement Menu
+                priceManagementMenu.setPriceMenuImg("price1.png"); // Must add respective texture for each Price
+                                                                   // Mangement Menu
                 game.setScreen(priceManagementMenu);
                 System.out.println(priceManagementMenu.getSellPrice1());
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-                
-                
+
             }
 
         });
@@ -421,12 +458,19 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         restaurantButtons[1] = new Button(buttonStyle);
-        restaurantButtons[1].setBounds(325, 445, 310, 150);
-        restaurantButtons[1].setColor(1f, 1f, 1f, 0f);
+        restaurantButtons[1].setBounds(645, 285, 310, 150);
+        restaurantButtons[1].setColor(1, 1, 1, 0);
         restaurantButtons[1].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
+                                                                            // from restaurant instances if it has such
+                                                                            // method
+                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
+                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
+                game.setScreen(priceManagementMenu);
+                System.out.println("aaa");
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -445,12 +489,19 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         restaurantButtons[2] = new Button(buttonStyle);
-        restaurantButtons[2].setBounds(645, 445, 310, 150);
-        restaurantButtons[2].setColor(1f, 1f, 1f, 0f);
+        restaurantButtons[2].setBounds(325, 435, 310, 150);
+        restaurantButtons[2].setColor(1, 1, 1, 0);
         restaurantButtons[2].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
+                                                                            // from restaurant instances if it has such
+                                                                            // method
+                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
+                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
+                game.setScreen(priceManagementMenu);
+                System.out.println("aaa");
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -469,12 +520,19 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         restaurantButtons[3] = new Button(buttonStyle);
-        restaurantButtons[3].setBounds(325, 605, 310, 150);
-        restaurantButtons[3].setColor(1f, 1f, 1f, 0f);
+        restaurantButtons[3].setBounds(645, 435, 310, 150);
+        restaurantButtons[3].setColor(1, 1, 1, 0);
         restaurantButtons[3].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
+                                                                            // from restaurant instances if it has such
+                                                                            // method
+                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
+                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
+                game.setScreen(priceManagementMenu);
+                System.out.println("aaa");
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -493,12 +551,19 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         restaurantButtons[4] = new Button(buttonStyle);
-        restaurantButtons[4].setBounds(645, 605, 310, 150);
+        restaurantButtons[4].setBounds(325, 605, 310, 150);
         restaurantButtons[4].setColor(1f, 1f, 1f, 0f);
         restaurantButtons[4].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
+                                                                            // from restaurant instances if it has such
+                                                                            // method
+                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
+                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
+                game.setScreen(priceManagementMenu);
+                System.out.println("aaa");
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -517,12 +582,19 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         restaurantButtons[5] = new Button(buttonStyle);
-        restaurantButtons[5].setBounds(325, 765, 310, 150);
+        restaurantButtons[5].setBounds(645, 605, 310, 150);
         restaurantButtons[5].setColor(1f, 1f, 1f, 0f);
         restaurantButtons[5].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
+                                                                            // from restaurant instances if it has such
+                                                                            // method
+                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
+                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
+                game.setScreen(priceManagementMenu);
+                System.out.println("aaa");
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -541,12 +613,19 @@ public class TowerMenu extends ScreenAdapter {
         });
 
         restaurantButtons[6] = new Button(buttonStyle);
-        restaurantButtons[6].setBounds(645, 765, 310, 150);
+        restaurantButtons[6].setBounds(325, 765, 310, 150);
         restaurantButtons[6].setColor(1f, 1f, 1f, 0f);
         restaurantButtons[6].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
+                                                                            // from restaurant instances if it has such
+                                                                            // method
+                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
+                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
+                game.setScreen(priceManagementMenu);
+                System.out.println("aaa");
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -564,12 +643,19 @@ public class TowerMenu extends ScreenAdapter {
             }
         });
         restaurantButtons[7] = new Button(buttonStyle);
-        restaurantButtons[7].setBounds(325, 445, 310, 150);
+        restaurantButtons[7].setBounds(645, 765, 310, 150);
         restaurantButtons[7].setColor(1f, 1f, 1f, 0f);
         restaurantButtons[7].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handleFirstButtonClick();
+                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
+                                                                            // from restaurant instances if it has such
+                                                                            // method
+                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
+                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
+                game.setScreen(priceManagementMenu);
+                System.out.println("aaa");
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
         });
@@ -598,10 +684,7 @@ public class TowerMenu extends ScreenAdapter {
         render(5);
     }
 
-    // This method opens price management screen for the first restaurant
-    protected void handleFirstButtonClick() {
-    }
-
+    // #endregion placeRestaurantButtons
     public void addMoney(int earning) {
         totalMoney += earning;
     }
@@ -613,7 +696,7 @@ public class TowerMenu extends ScreenAdapter {
     public int getMoney() {
         return totalMoney;
     }
-    
+
     public Restaurant[] getRestaurants() {
         return restaurants;
     }
@@ -621,6 +704,29 @@ public class TowerMenu extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+    }
+
+    // #region Animation
+    public void Animation() {
+        for (Customer customer : customers) // Customer class Animation Code. I have created a customers Arraylist for
+                                            // this
+        {
+            TextureRegion currentFrame = (TextureRegion) customer.geAnimation().getKeyFrame(customer.getElapsedTime(),
+                    true);
+            game.batch.draw(currentFrame, customer.getX(), customer.getY());
+            customer.update();
+        }
+
+        if (n == 40) {
+            customers.add(new Customer(0));
+            n = 0;
+        }
+        n++;
+    }
+    // #endregion
+
+    public void setOpen(int restaurantNumber) {
+        isOpen[restaurantNumber] = true;
     }
 
     @Override
@@ -635,38 +741,9 @@ public class TowerMenu extends ScreenAdapter {
         font.getData().setScale(2, 2);
         font.draw(game.batch, "Next Day", 1600, 170);
 
-
-       
-        // for (Customer customer: customers)          // Customer class Animation Code. I have created a customers Arraylist for this
-        // {
-        //     TextureRegion currentFrame = (TextureRegion) customer.geAnimation().getKeyFrame(customer.getElapsedTime(), true);
-        //     game.batch.draw(currentFrame, customer.getX(), customer.getY());
-        //     customer.update();
-        // }
-        
-        // if (n==40)
-        // {
-        //     customers.add(new Customer(0));
-        //     n=0;
-        // }
-        // n++;
-
-
-
+        Animation();
 
         game.batch.end();
-
-
-        for (int i = 0; i < isOpen.length; i++) {
-            if (isOpen[i] == true) {
-                forSaleButtons[i].setVisible(false);
-                restaurantButtons[i + 1].setVisible(true);
-            } else if (restaurantButtons[i] != null) {
-                forSaleButtons[i].setVisible(true);
-                restaurantButtons[i + 1].setVisible(false);
-            }
-        }
-
         stage.act(delta);
         stage.draw();
     }
@@ -675,4 +752,5 @@ public class TowerMenu extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
     }
+
 }

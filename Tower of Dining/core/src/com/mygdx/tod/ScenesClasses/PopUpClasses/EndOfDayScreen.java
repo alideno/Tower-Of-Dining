@@ -22,9 +22,9 @@ import com.badlogic.gdx.graphics.Cursor;
  * 
  * @author Deniz Şahin
  */
-public class EndOfDayScreen extends PopUp{
-    
-    //defining the variables
+public class EndOfDayScreen extends PopUp {
+
+    // defining the variables
     private Restaurant[] restaurants = new Restaurant[8];
     private int[] earnings = new int[8];
     private Stage buttonStage;
@@ -32,12 +32,11 @@ public class EndOfDayScreen extends PopUp{
     private TowerMenu towerMenu;
     private int totalEarnings;
 
-    public EndOfDayScreen(TowerOfDining game, TowerMenu towerMenu)
-    {
+    public EndOfDayScreen(TowerOfDining game, TowerMenu towerMenu) {
         super(game);
         this.towerMenu = towerMenu;
-        
-        //code fragment taken from MainMenu class
+
+        // code fragment taken from MainMenu class
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         ButtonStyle buttonStyle = new ButtonStyle();
@@ -46,8 +45,8 @@ public class EndOfDayScreen extends PopUp{
 
         nextButton = new Button(buttonStyle);
         nextButton.setColor(1f, 1f, 1f, 0f);
-        nextButton.setBounds(1325, 460, 435,385);
-        
+        nextButton.setBounds(1325, 460, 435, 385);
+
         nextButton.addListener(new nextButtonListener());
 
         nextButton.addListener(new InputListener() {
@@ -55,7 +54,7 @@ public class EndOfDayScreen extends PopUp{
                 // Set the cursor to Hand when the mouse enters the button
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
             }
-        
+
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                 // Restore the default cursor when the mouse exits the button
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
@@ -66,11 +65,10 @@ public class EndOfDayScreen extends PopUp{
         buttonStage.addActor(nextButton);
 
         popupTexture = new Texture(Gdx.files.internal("dayend.png"));
-        
+
         totalEarnings = 0;
         restaurants = towerMenu.getRestaurants();
-        for(int i= 0; i < 8; i++)
-        {
+        for (int i = 0; i < 8; i++) {
             earnings[i] = restaurants[i].endDay();
             totalEarnings += earnings[i];
         }
@@ -85,20 +83,19 @@ public class EndOfDayScreen extends PopUp{
      */
     public void render(float delta) {
         game.batch.begin();
-
+        game.batch.draw(new Texture(Gdx.files.internal("tower.png")), 0, 0);
         game.batch.draw(popupTexture, 0, 0);
 
         BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
         font.getData().setScale(4.5f);
 
-        for(int i = 0; i < 8; i++)
-        {
+        for (int i = 0; i < 8; i++) {
             int column = i % 2;
             int row = i / 2;
             font.draw(game.batch, "" + earnings[i], 400 + column * 600, 210 + row * 200);
         }
-        
-        font.draw(game.batch, "" + totalEarnings, 400, 710);
+
+        font.draw(game.batch, "" + totalEarnings, 1300, 200);
 
         game.batch.end();
 
@@ -106,15 +103,15 @@ public class EndOfDayScreen extends PopUp{
         buttonStage.draw();
     }
 
-    private class nextButtonListener extends ClickListener{
+    private class nextButtonListener extends ClickListener {
         public void clicked(InputEvent event, float x, float y) {
-                game.closeScreen();
+            game.closeScreen();
         }
     }
 
     @Override
     public void dispose() {
-        buttonStage.dispose();        
+        buttonStage.dispose();
         super.dispose();
     }
 
