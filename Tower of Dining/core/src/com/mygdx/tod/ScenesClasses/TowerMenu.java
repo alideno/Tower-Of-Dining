@@ -205,6 +205,8 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 coinDrop.play(1);
+                customers = new ArrayList<Customer>();
+                removeCustomers = new ArrayList<Customer>();
                 day++;
                 if (day == 10) {
                     game.newScreen(new NameEntry(game, towerMenu));
