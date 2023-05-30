@@ -45,6 +45,7 @@ public class TowerMenu extends ScreenAdapter {
     private int totalMoney = 1000000;
     private int day = 0;
     public Restaurant[] restaurants;
+    public PriceManagementMenu[] priceManagementMenus;
     public Button[] restaurantButtons;
     public Button[] forSaleButtons;
     private static boolean[] isOpen;
@@ -62,6 +63,7 @@ public class TowerMenu extends ScreenAdapter {
         this.game = game;
         towerMenuImg = new Texture("tower.png");
         restaurants = new Restaurant[8];
+        priceManagementMenus = new PriceManagementMenu[8];
         restaurantButtons = new Button[8];
         forSaleButtons = new Button[8];
         priceManagementMenu = new PriceManagementMenu(game, this);
@@ -77,6 +79,7 @@ public class TowerMenu extends ScreenAdapter {
 
         stage = new Stage();
         defineRestaurants();
+        definePriceManegementMenus();
         placeForSaleButtons();
         placeRestaurantButtons();
         shopButton();
@@ -86,33 +89,105 @@ public class TowerMenu extends ScreenAdapter {
         for (int index = 0; index < restaurantButtons.length - 1; index++) {
             restaurantButtons[index + 1].setVisible(false);
         }
+
     }
 
     public void defineRestaurants() {
-        restaurants[0] = new Restaurant(2000, this);
-        restaurants[0].addFoodItem(new Food(10, "Burger"));
-        restaurants[0].addFoodItem(new Food(10, "Fries"));
-        restaurants[0].addFoodItem(new Food(20, "Drink"));
+        
+            restaurants[0] = new Restaurant(2000, this);
+            restaurants[0].addFoodItem(new Food(10, "Burger"));
+            restaurants[0].addFoodItem(new Food(10, "Fries"));
+            restaurants[0].addFoodItem(new Food(20, "Drink"));
+    
+            restaurants[1] = new Restaurant(5000, this);
+            restaurants[1].addFoodItem(new Food(15, "Fried Chicken"));
+            restaurants[1].addFoodItem(new Food(10, "Bucket"));
+            restaurants[1].addFoodItem(new Food(20, "Sauce"));
+    
+            restaurants[2] = new Restaurant(6000, this);
+            restaurants[2].addFoodItem(new Food(15, "Doner"));
+            restaurants[2].addFoodItem(new Food(10, "Bread"));
+            restaurants[2].addFoodItem(new Food(20, "Ayran"));
+    
+            restaurants[3] = new Restaurant(7000, this);
+            restaurants[3].addFoodItem(new Food(15, "Coffee"));
+            restaurants[3].addFoodItem(new Food(10, "Ice Coffee"));
+            restaurants[3].addFoodItem(new Food(20, "Milked Coffee"));
+    
+            restaurants[4] = new Restaurant(8000, this);
+            restaurants[4].addFoodItem(new Food(15, "Sandwich"));
+            restaurants[4].addFoodItem(new Food(10, "Wrap"));
+            restaurants[4].addFoodItem(new Food(20, "Toast"));
+    
+            restaurants[5] = new Restaurant(9000, this);
+            restaurants[5].addFoodItem(new Food(15, "Pepperoni P"));
+            restaurants[5].addFoodItem(new Food(10, "Veggie Pizza"));
+            restaurants[5].addFoodItem(new Food(20, "Cheese Pizza"));
+    
+            restaurants[6] = new Restaurant(10000, this);
+            restaurants[6].addFoodItem(new Food(15, "Cake"));
+            restaurants[6].addFoodItem(new Food(10, "Cookie"));
+            restaurants[6].addFoodItem(new Food(20, "Ekler"));
+    
+            restaurants[7] = new Restaurant(11000, this);
+            restaurants[7].addFoodItem(new Food(15, "Sushi"));
+            restaurants[7].addFoodItem(new Food(10, "Tempura Roll"));
+            restaurants[7].addFoodItem(new Food(20, "Nigiri"));
+        
+    }
 
-        restaurants[1] = new Restaurant(5000, this);
-        restaurants[1].addFoodItem(new Food(15, "Fried Chicken"));
-        restaurants[1].addFoodItem(new Food(10, "Bucket"));
-        restaurants[1].addFoodItem(new Food(20, "Sauce"));
+    public void definePriceManegementMenus ()
+    {
+        priceManagementMenus[0] = new PriceManagementMenu(game, towerMenu);
+        priceManagementMenus[0].addFoodToMenu(restaurants[0].getFoods()[0]);
+        priceManagementMenus[0].addFoodToMenu(restaurants[0].getFoods()[1]);
+        priceManagementMenus[0].addFoodToMenu(restaurants[0].getFoods()[2]);
+        priceManagementMenus[0].setPriceMenuImg("price1.png");
 
-        restaurants[2] = new Restaurant(6000, this);
-        restaurants[2].addFoodItem(new Food(15, "Doner"));
-        restaurants[2].addFoodItem(new Food(10, "Bread"));
-        restaurants[2].addFoodItem(new Food(20, "Ayran"));
+        priceManagementMenus[1] = new PriceManagementMenu(game, towerMenu);
+        priceManagementMenus[1].addFoodToMenu(restaurants[1].getFoods()[0]);
+        priceManagementMenus[1].addFoodToMenu(restaurants[1].getFoods()[1]);
+        priceManagementMenus[1].addFoodToMenu(restaurants[1].getFoods()[2]);
+        priceManagementMenus[1].setPriceMenuImg("price2.png");
 
-        restaurants[3] = new Restaurant(7000, this);
-        restaurants[3].addFoodItem(new Food(15, "Coffee"));
-        restaurants[3].addFoodItem(new Food(10, "Ice Coffee"));
-        restaurants[3].addFoodItem(new Food(20, "Milked Coffee"));
+        priceManagementMenus[2] = new PriceManagementMenu(game, towerMenu);
+        priceManagementMenus[2].addFoodToMenu(restaurants[2].getFoods()[0]);
+        priceManagementMenus[2].addFoodToMenu(restaurants[2].getFoods()[1]);
+        priceManagementMenus[2].addFoodToMenu(restaurants[2].getFoods()[2]);
+        priceManagementMenus[2].setPriceMenuImg("price3.png");
 
-        restaurants[4] = new Restaurant(8000, this);
-        restaurants[5] = new Restaurant(9000, this);
-        restaurants[6] = new Restaurant(10000, this);
-        restaurants[7] = new Restaurant(11000, this);
+        priceManagementMenus[3] = new PriceManagementMenu(game, towerMenu);
+        priceManagementMenus[3].addFoodToMenu(restaurants[3].getFoods()[0]);
+        priceManagementMenus[3].addFoodToMenu(restaurants[3].getFoods()[1]);
+        priceManagementMenus[3].addFoodToMenu(restaurants[3].getFoods()[2]);
+        priceManagementMenus[3].setPriceMenuImg("price4.png");
+
+        priceManagementMenus[4] = new PriceManagementMenu(game, towerMenu);
+        priceManagementMenus[4].addFoodToMenu(restaurants[4].getFoods()[0]);
+        priceManagementMenus[4].addFoodToMenu(restaurants[4].getFoods()[1]);
+        priceManagementMenus[4].addFoodToMenu(restaurants[4].getFoods()[2]);
+        priceManagementMenus[4].setPriceMenuImg("price5.png");
+
+        priceManagementMenus[5] = new PriceManagementMenu(game, towerMenu);
+        priceManagementMenus[5].addFoodToMenu(restaurants[5].getFoods()[0]);
+        priceManagementMenus[5].addFoodToMenu(restaurants[5].getFoods()[1]);
+        priceManagementMenus[5].addFoodToMenu(restaurants[5].getFoods()[2]);
+        priceManagementMenus[5].setPriceMenuImg("price6.png");
+
+        priceManagementMenus[6] = new PriceManagementMenu(game, towerMenu);
+        priceManagementMenus[6].addFoodToMenu(restaurants[6].getFoods()[0]);
+        priceManagementMenus[6].addFoodToMenu(restaurants[6].getFoods()[1]);
+        priceManagementMenus[6].addFoodToMenu(restaurants[6].getFoods()[2]);
+        priceManagementMenus[6].setPriceMenuImg("price7.png");
+
+        priceManagementMenus[7] = new PriceManagementMenu(game, towerMenu);
+        priceManagementMenus[7].addFoodToMenu(restaurants[7].getFoods()[0]);
+        priceManagementMenus[7].addFoodToMenu(restaurants[7].getFoods()[1]);
+        priceManagementMenus[7].addFoodToMenu(restaurants[7].getFoods()[2]);
+        priceManagementMenus[7].setPriceMenuImg("price8.png");
+        
+
+        
     }
 
     public void nextDayButton() {
@@ -442,14 +517,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurantButtons[0].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
-                                                                            // from restaurant instances if it has such
-                                                                            // method
-                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
-                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                priceManagementMenu.setPriceMenuImg("price1.png"); // Must add respective texture for each Price
-                                                                   // Mangement Menu
-                game.setScreen(priceManagementMenu);
+                game.setScreen(priceManagementMenus[0]);
                 System.out.println(priceManagementMenu.getSellPrice1());
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
@@ -476,12 +544,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurantButtons[1].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
-                                                                            // from restaurant instances if it has such
-                                                                            // method
-                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
-                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                game.setScreen(priceManagementMenu);
+                game.setScreen(priceManagementMenus[1]);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
@@ -507,12 +570,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurantButtons[2].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
-                                                                            // from restaurant instances if it has such
-                                                                            // method
-                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
-                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                game.setScreen(priceManagementMenu);
+                game.setScreen(priceManagementMenus[2]);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
@@ -538,12 +596,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurantButtons[3].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
-                                                                            // from restaurant instances if it has such
-                                                                            // method
-                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
-                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                game.setScreen(priceManagementMenu);
+                game.setScreen(priceManagementMenus[3]);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
@@ -569,12 +622,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurantButtons[4].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
-                                                                            // from restaurant instances if it has such
-                                                                            // method
-                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
-                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                game.setScreen(priceManagementMenu);
+                game.setScreen(priceManagementMenus[4]);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
@@ -600,12 +648,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurantButtons[5].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
-                                                                            // from restaurant instances if it has such
-                                                                            // method
-                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
-                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                game.setScreen(priceManagementMenu);
+                game.setScreen(priceManagementMenus[5]);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
@@ -631,12 +674,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurantButtons[6].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
-                                                                            // from restaurant instances if it has such
-                                                                            // method
-                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
-                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                game.setScreen(priceManagementMenu);
+                game.setScreen(priceManagementMenus[6]);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
@@ -661,12 +699,7 @@ public class TowerMenu extends ScreenAdapter {
         restaurantButtons[7].addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                priceManagementMenu.addFoodToMenu(new Food(5, "Whatever")); // These are temporary examples. Grab foods
-                                                                            // from restaurant instances if it has such
-                                                                            // method
-                priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
-                priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
-                game.setScreen(priceManagementMenu);
+                game.setScreen(priceManagementMenus[7]);
                 System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
@@ -731,7 +764,7 @@ public class TowerMenu extends ScreenAdapter {
         }
 
         if (n == 40) {
-            customers.add(new Customer(0));
+            customers.add(new Customer(1));
             n = 0;
         }
         n++;
