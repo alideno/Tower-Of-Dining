@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer.Random;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -55,7 +56,8 @@ public class TowerMenu extends ScreenAdapter {
     private Stage stage;
     int n = 0;
     ArrayList<Customer> customers = new ArrayList<Customer>();
-    Customer customer1 = new Customer(0);
+    ArrayList<Customer> removeCustomers = new ArrayList<Customer>();
+    Customer customer1 = new Customer(1);
 
     public TowerMenu(TowerOfDining game) {
         towerMenu = this;
@@ -518,6 +520,7 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[0]);
+                restaurants[0].setFoodsSellingPrices(priceManagementMenus[0].getSellPrice1(), priceManagementMenus[0].getSellPrice2(), priceManagementMenus[0].getSellPrice3());
                 System.out.println(priceManagementMenu.getSellPrice1());
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
@@ -761,15 +764,50 @@ public class TowerMenu extends ScreenAdapter {
                     true);
             game.batch.draw(currentFrame, customer.getX(), customer.getY());
             customer.update();
+            removeCustomers.add(customer);
         }
 
-        if (n == 40) {
-            customers.add(new Customer(1));
-            n = 0;
+        for (Customer customer: removeCustomers)
+        {
+            if (customer.getX()>2000)
+            {
+                customers.remove(customer);
+            }
+        }
+
+
+        
+        
+        
+        if (n == 40) 
+        {
+            addCustomer();
+            n=0;
         }
         n++;
+        System.out.println(n);
     }
     // #endregion
+
+    public void addCustomer ()
+    {
+        java.util.Random random = new java.util.Random();
+        int rand = random.nextInt(8);
+
+        System.out.println(rand);
+        System.out.println(isOpen[rand]);
+        if (isOpen[rand]==true)
+        {
+                customers.add(new Customer(rand+1));
+                System.out.println(isOpen[1]);
+                
+        }
+        
+        else
+        {
+            addCustomer();
+        }
+    }
 
     public void setOpen(int restaurantNumber) {
         isOpen[restaurantNumber] = true;
