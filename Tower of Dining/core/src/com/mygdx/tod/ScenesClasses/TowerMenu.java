@@ -377,8 +377,9 @@ public class TowerMenu extends ScreenAdapter {
                                                                             // method
                 priceManagementMenu.addFoodToMenu(new Food(5, "Burger"));
                 priceManagementMenu.addFoodToMenu(new Food(5, "Sauce"));
+                priceManagementMenu.setPriceMenuImg("price1.png");  // Must add respective texture for each Price Mangement Menu
                 game.setScreen(priceManagementMenu);
-                System.out.println("aaa");
+                System.out.println(priceManagementMenu.getSellPrice1());
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
                 
                 
