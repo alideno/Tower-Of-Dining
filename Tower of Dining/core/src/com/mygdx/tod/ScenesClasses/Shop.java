@@ -2,7 +2,6 @@ package com.mygdx.tod.ScenesClasses;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,23 +15,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.tod.TowerOfDining;
 
-public class Shop extends ScreenAdapter implements TextInputListener {
+public class Shop extends ScreenAdapter  {
     Texture menuImg;
     private TowerOfDining game;
     private TowerMenu towerMenu;
     private Button nextButton, previousButton, orderButton, backButton;
     private int currentShop;
-    int[] foodCount;
+    private int[] foodCount = new int[24];
     private Stage stage;
     private TextField textField1,textField2,textField3;
+    private int totalCost;
 
-    public Shop(TowerOfDining game, int currentShop, TowerMenu towerMenu) {// for towermenu class
+    public Shop(TowerOfDining game, int currentShop, int[]foodCount, TowerMenu towerMenu, int totalCost) {// for towermenu class
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         ButtonStyle buttonStyle = new ButtonStyle();
@@ -43,11 +42,9 @@ public class Shop extends ScreenAdapter implements TextInputListener {
         this.currentShop = currentShop;
         String temp = "shop menu" + (currentShop + 1) + ".png";
         menuImg = new Texture(temp);
-        foodCount = new int[24];
-        for (int i = 0; i < foodCount.length; i++) {
-            foodCount[i] = 0;
-        }
+        this.foodCount = foodCount;
         stage = new Stage();
+        this.totalCost = totalCost;
 
         nextButton = new Button(buttonStyle);
         nextButton.setColor(1f,1f,1f,0f);
@@ -55,6 +52,7 @@ public class Shop extends ScreenAdapter implements TextInputListener {
         nextButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                updateTotal();
                 nextClick();
 
             }
@@ -80,6 +78,7 @@ public class Shop extends ScreenAdapter implements TextInputListener {
         previousButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                updateTotal();
                 prevClick();
 
             }
@@ -109,8 +108,8 @@ public class Shop extends ScreenAdapter implements TextInputListener {
         orderButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //TODO
-
+                purchase();
+                goBack();
             }
 
         });
@@ -127,14 +126,25 @@ public class Shop extends ScreenAdapter implements TextInputListener {
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
         });
-
+        TextFieldStyle textStyle = new TextFieldStyle(new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt")), Color.BLACK, null, null, null);
+        textStyle.font.getData().setScale(3, 3);
+        textField1 = new TextField("0", textStyle);
+        textField1.setPosition(1250, 600);
+        textField1.setSize(200, 100);
+        textField2 = new TextField("0", textStyle);
+        textField2.setPosition(1250, 410);
+        textField2.setSize(200, 100);
+        textField3 = new TextField("0", textStyle);
+        textField3.setPosition(1250, 220);
+        textField3.setSize(200, 100);
 
         stage.addActor(nextButton);
         stage.addActor(previousButton);
         stage.addActor(backButton);
         stage.addActor(orderButton);
-        
-
+        stage.addActor(textField1);
+        stage.addActor(textField2);
+        stage.addActor(textField3);
     }
 
     public void goBack() {
@@ -164,25 +174,64 @@ public class Shop extends ScreenAdapter implements TextInputListener {
         });
         render(1);
     }
+    public void updateTotal() throws NumberFormatException{
+
+
+            int one = Integer.parseInt(textField1.getText());  
+            int two = Integer.parseInt(textField2.getText());
+            int three = Integer.parseInt(textField3.getText());
+            foodCount[currentShop*3] = one;
+            foodCount[currentShop*3 +1 ] = two;
+            foodCount[currentShop*3 + 2] = three;
+
+            totalCost =+ towerMenu.getRestaurants()[currentShop].getFoods()[0].getShopPrice()*one
+            +towerMenu.getRestaurants()[currentShop].getFoods()[1].getShopPrice()*two
+            +towerMenu.getRestaurants()[currentShop].getFoods()[2].getShopPrice()*three; 
+
+        }
+
+
+    public void purchase(){
+        for (int i = 0; i < towerMenu.getRestaurants().length; i++) {
+            for (int j = 0; j < 3; j++) {
+                towerMenu.getRestaurants()[i].getFoods()[j].addStock(foodCount[i*3+j]);
+            }
+        }
+        towerMenu.reduceMoney(totalCost);
+    }
 
     public void nextClick(){
+        int currentShop = getCurrentShop();
+        int[] foodCount = getFoodCount();
         if (currentShop != 7) {
             game.closeScreen();
-            game.newScreen(new Shop(game, currentShop+1, foodCount));
+            game.newScreen(new Shop(game, currentShop+1,foodCount, towerMenu, totalCost));        
             Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         }
+
     }
     public void prevClick(){
+        int currentShop = getCurrentShop();
+        int[] foodCount = getFoodCount();
         if (currentShop != 0) {
             game.closeScreen();
-            game.newScreen(new Shop(game, currentShop-1, foodCount));
+            game.newScreen(new Shop(game, currentShop-1, foodCount, towerMenu, totalCost));     
             Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
         }
     }
 
-    public Shop(TowerOfDining game, int currentShop, int[] foodCount) { // ONLY USE IN THIS CLASS
-        Shop shop = new Shop(game, currentShop, towerMenu);
-        shop.foodCount = foodCount;
+
+
+    public int getCurrentShop(){
+        return currentShop;
+    }
+
+    public int[] getFoodCount(){
+        return foodCount;
+    }
+
+    public void setFoodCount(int[] foodCount) {
+        this.foodCount = foodCount;
     }
 
     @Override
@@ -204,6 +253,8 @@ public class Shop extends ScreenAdapter implements TextInputListener {
         font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[1].getShopPrice() + "", 890, 510);
         font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[2].getStock() + "/40", 400, 320);
         font.draw(game.batch,towerMenu.getRestaurants()[currentShop].getFoods()[2].getShopPrice() + "", 890, 320);
+        font.draw(game.batch, totalCost+ "", 700, 150);
+
         game.batch.end();
 
         stage.act(delta);
@@ -213,18 +264,6 @@ public class Shop extends ScreenAdapter implements TextInputListener {
     @Override
     public void dispose() {
         stage.dispose();
-    }
-
-    @Override
-    public void input(String text) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'input'");
-    }
-
-    @Override
-    public void canceled() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'canceled'");
     }
 
 }
