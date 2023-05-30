@@ -1,10 +1,14 @@
 package com.mygdx.tod.ScenesClasses;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -12,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.tod.TowerOfDining;
+import com.mygdx.tod.itemClasses.Customer;
 import com.mygdx.tod.itemClasses.Food;
 import com.mygdx.tod.ScenesClasses.PopUpClasses.EndOfDayScreen;
 import com.mygdx.tod.itemClasses.Restaurant;
@@ -39,8 +44,13 @@ public class TowerMenu extends ScreenAdapter {
     private Button[] forSaleButtons;
     private static boolean[] isOpen;
     private Stage stage;
+    int n = 0;
+    // ArrayList<Customer> customers = new ArrayList<Customer>();
+    // Customer customer1 = new Customer(0);
+    
 
     public TowerMenu(TowerOfDining game) {
+        // customers.add(customer1);
         this.game = game;
         towerMenuImg = new Texture("tower.png");
         restaurants = new Restaurant[8];
@@ -611,7 +621,27 @@ public class TowerMenu extends ScreenAdapter {
         font.getData().setScale(2, 2);
         font.draw(game.batch, "Next Day", 1600, 170);
 
+
+       
+        // for (Customer customer: customers)          // Customer class Animation Code. I have created a customers Arraylist for this
+        // {
+        //     TextureRegion currentFrame = (TextureRegion) customer.geAnimation().getKeyFrame(customer.getElapsedTime(), true);
+        //     game.batch.draw(currentFrame, customer.getX(), customer.getY());
+        //     customer.update();
+        // }
+        
+        // if (n==40)
+        // {
+        //     customers.add(new Customer(0));
+        //     n=0;
+        // }
+        // n++;
+
+
+
+
         game.batch.end();
+
 
         for (int i = 0; i < isOpen.length; i++) {
             if (isOpen[i] == true) {
