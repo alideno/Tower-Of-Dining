@@ -83,8 +83,11 @@ public class TowerMenu extends ScreenAdapter {
         restaurants[0].addFoodItem(new Food(10, "Fries"));
         restaurants[0].addFoodItem(new Food(10, "Drink"));
         
-
         restaurants[1] = new Restaurant(5000);
+        restaurants[1].addFoodItem(new Food(15, "Fried Chicken"));
+        restaurants[1].addFoodItem(new Food(10, "Bucket"));
+        restaurants[1].addFoodItem(new Food(20, "Sauce"));
+
         restaurants[2] = new Restaurant(6000);
         restaurants[3] = new Restaurant(7000);
         restaurants[4] = new Restaurant(8000);

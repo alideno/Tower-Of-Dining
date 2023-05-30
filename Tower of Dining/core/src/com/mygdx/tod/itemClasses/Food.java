@@ -30,7 +30,20 @@ public class Food {
     }
 
     public int calculateCustomers() {
-        return 0;
+        if (sellPrice >= basePrice) {
+            if ((int) ((int) (-1/20)* Math.pow(sellPrice-basePrice, 2)+20) < 0) {
+               return 0; 
+            }else {
+                return (int) ((int) (-1/20)* Math.pow(sellPrice-basePrice, 2)+20);
+            }
+        }else{
+            if ((int) ((int) (1/20)* Math.pow(sellPrice-basePrice, 2)+20) > 40) {
+                return 40;
+            }else{
+                return (int) ((int) (1/20)* Math.pow(sellPrice-basePrice, 2)+20);
+            }
+
+        }
     }
 
     public int getStock(){
