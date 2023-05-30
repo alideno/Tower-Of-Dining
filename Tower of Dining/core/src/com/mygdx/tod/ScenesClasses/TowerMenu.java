@@ -88,7 +88,7 @@ public class TowerMenu extends ScreenAdapter {
 
     public void defineRestaurants() {
         restaurants[0] = new Restaurant(2000);
-        restaurants[0].addFoodItem(new Food(100, "Burger"));
+        restaurants[0].addFoodItem(new Food(10, "Burger"));
         restaurants[0].addFoodItem(new Food(10, "Fries"));
         restaurants[0].addFoodItem(new Food(10, "Drink"));
 
@@ -98,11 +98,35 @@ public class TowerMenu extends ScreenAdapter {
         restaurants[1].addFoodItem(new Food(20, "Sauce"));
 
         restaurants[2] = new Restaurant(6000);
+        restaurants[2].addFoodItem(new Food(15, "Doner"));
+        restaurants[2].addFoodItem(new Food(10, "Bread"));
+        restaurants[2].addFoodItem(new Food(20, "Ayran"));
+
         restaurants[3] = new Restaurant(7000);
+        restaurants[3].addFoodItem(new Food(15, "Coffee"));
+        restaurants[3].addFoodItem(new Food(10, "Ice Coffee"));
+        restaurants[3].addFoodItem(new Food(20, "Milked Coffee"));
+
         restaurants[4] = new Restaurant(8000);
-        restaurants[5] = new Restaurant(9000);
-        restaurants[6] = new Restaurant(10000);
-        restaurants[7] = new Restaurant(11000);
+        restaurants[4].addFoodItem(new Food(15, "Sandwich"));
+        restaurants[4].addFoodItem(new Food(10, "Wrap"));
+        restaurants[4].addFoodItem(new Food(20, "Toast"));
+
+        restaurants[5] = new Restaurant(8000);
+        restaurants[5].addFoodItem(new Food(15, "Pepperoni P"));
+        restaurants[5].addFoodItem(new Food(10, "Vegi Pizza"));
+        restaurants[5].addFoodItem(new Food(20, "Cheese Pizza"));
+
+        restaurants[6] = new Restaurant(8000);
+        restaurants[6].addFoodItem(new Food(15, "Cake"));
+        restaurants[6].addFoodItem(new Food(10, "Cookie"));
+        restaurants[6].addFoodItem(new Food(20, "Ekler"));
+
+        restaurants[7] = new Restaurant(8000);
+        restaurants[7].addFoodItem(new Food(15, "Sushi"));
+        restaurants[7].addFoodItem(new Food(10, "Tempura Roll"));
+        restaurants[7].addFoodItem(new Food(20, "Nigiri"));
+
     }
 
     public void nextDayButton() {
@@ -214,7 +238,11 @@ public class TowerMenu extends ScreenAdapter {
     }
 
     protected void handleShopButtonClick() {
-        game.newScreen(new Shop(game, 0, this));
+        int[] foods = new int[24];
+        for (int i = 0; i < foods.length; i++) {
+            foods[i] = 0;
+        }
+        game.newScreen(new Shop(game, 0, foods, this, 0));
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
     }
 
