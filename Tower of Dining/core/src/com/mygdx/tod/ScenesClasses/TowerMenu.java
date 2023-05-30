@@ -517,7 +517,7 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[0]);
-                System.out.println(priceManagementMenus[0].getSellPrice1());
+        
 
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
@@ -783,10 +783,9 @@ public class TowerMenu extends ScreenAdapter {
         java.util.Random random = new java.util.Random();
         int rand = random.nextInt(8);
 
-        System.out.println(isOpen[rand]);
+
         if (isOpen[rand] == true) {
             customers.add(new Customer(rand + 1));
-            System.out.println(isOpen[1]);
 
         }
 
@@ -823,7 +822,6 @@ public class TowerMenu extends ScreenAdapter {
     public void render(float delta) {
 
         setFoodsSellingPrices();
-        System.out.println(restaurants[0].getFoods()[0].getSellPrice());
         ScreenUtils.clear(1, 0, 0, 1);
 
         game.batch.begin();
