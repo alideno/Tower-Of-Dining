@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer.Random;
@@ -52,14 +50,15 @@ public class TowerMenu extends ScreenAdapter {
     private static boolean[] isOpen;
     Sound soundPurchaseRes = Gdx.audio.newSound(Gdx.files.internal("soundPurchaseRes.wav"));
     Sound coinDrop = Gdx.audio.newSound(Gdx.files.internal("coinDrop.mp3"));
-
+    MainMenu main;
     private Stage stage;
     int n = 0;
     ArrayList<Customer> customers = new ArrayList<Customer>();
     ArrayList<Customer> removeCustomers = new ArrayList<Customer>();
     Customer customer1 = new Customer(1);
 
-    public TowerMenu(TowerOfDining game) {
+    public TowerMenu(TowerOfDining game, MainMenu main) {
+        this.main = main;
         towerMenu = this;
         customers.add(customer1);
         this.game = game;
@@ -95,51 +94,50 @@ public class TowerMenu extends ScreenAdapter {
     }
 
     public void defineRestaurants() {
-        
-            restaurants[0] = new Restaurant(2000, this);
-            restaurants[0].addFoodItem(new Food(10, "Burger"));
-            restaurants[0].addFoodItem(new Food(10, "Fries"));
-            restaurants[0].addFoodItem(new Food(20, "Drink"));
-    
-            restaurants[1] = new Restaurant(5000, this);
-            restaurants[1].addFoodItem(new Food(15, "Fried Chicken"));
-            restaurants[1].addFoodItem(new Food(10, "Bucket"));
-            restaurants[1].addFoodItem(new Food(20, "Sauce"));
-    
-            restaurants[2] = new Restaurant(6000, this);
-            restaurants[2].addFoodItem(new Food(15, "Doner"));
-            restaurants[2].addFoodItem(new Food(10, "Bread"));
-            restaurants[2].addFoodItem(new Food(20, "Ayran"));
-    
-            restaurants[3] = new Restaurant(7000, this);
-            restaurants[3].addFoodItem(new Food(15, "Coffee"));
-            restaurants[3].addFoodItem(new Food(10, "Ice Coffee"));
-            restaurants[3].addFoodItem(new Food(20, "Milked Coffee"));
-    
-            restaurants[4] = new Restaurant(8000, this);
-            restaurants[4].addFoodItem(new Food(15, "Sandwich"));
-            restaurants[4].addFoodItem(new Food(10, "Wrap"));
-            restaurants[4].addFoodItem(new Food(20, "Toast"));
-    
-            restaurants[5] = new Restaurant(9000, this);
-            restaurants[5].addFoodItem(new Food(15, "Pepperoni P"));
-            restaurants[5].addFoodItem(new Food(10, "Veggie Pizza"));
-            restaurants[5].addFoodItem(new Food(20, "Cheese Pizza"));
-    
-            restaurants[6] = new Restaurant(10000, this);
-            restaurants[6].addFoodItem(new Food(15, "Cake"));
-            restaurants[6].addFoodItem(new Food(10, "Cookie"));
-            restaurants[6].addFoodItem(new Food(20, "Ekler"));
-    
-            restaurants[7] = new Restaurant(11000, this);
-            restaurants[7].addFoodItem(new Food(15, "Sushi"));
-            restaurants[7].addFoodItem(new Food(10, "Tempura Roll"));
-            restaurants[7].addFoodItem(new Food(20, "Nigiri"));
-        
+
+        restaurants[0] = new Restaurant(2000, this);
+        restaurants[0].addFoodItem(new Food(10, "Burger"));
+        restaurants[0].addFoodItem(new Food(10, "Fries"));
+        restaurants[0].addFoodItem(new Food(20, "Drink"));
+
+        restaurants[1] = new Restaurant(5000, this);
+        restaurants[1].addFoodItem(new Food(15, "Fried Chicken"));
+        restaurants[1].addFoodItem(new Food(10, "Bucket"));
+        restaurants[1].addFoodItem(new Food(20, "Sauce"));
+
+        restaurants[2] = new Restaurant(6000, this);
+        restaurants[2].addFoodItem(new Food(15, "Doner"));
+        restaurants[2].addFoodItem(new Food(10, "Bread"));
+        restaurants[2].addFoodItem(new Food(20, "Ayran"));
+
+        restaurants[3] = new Restaurant(7000, this);
+        restaurants[3].addFoodItem(new Food(15, "Coffee"));
+        restaurants[3].addFoodItem(new Food(10, "Ice Coffee"));
+        restaurants[3].addFoodItem(new Food(20, "Milked Coffee"));
+
+        restaurants[4] = new Restaurant(8000, this);
+        restaurants[4].addFoodItem(new Food(15, "Sandwich"));
+        restaurants[4].addFoodItem(new Food(10, "Wrap"));
+        restaurants[4].addFoodItem(new Food(20, "Toast"));
+
+        restaurants[5] = new Restaurant(9000, this);
+        restaurants[5].addFoodItem(new Food(15, "Pepperoni P"));
+        restaurants[5].addFoodItem(new Food(10, "Veggie Pizza"));
+        restaurants[5].addFoodItem(new Food(20, "Cheese Pizza"));
+
+        restaurants[6] = new Restaurant(10000, this);
+        restaurants[6].addFoodItem(new Food(15, "Cake"));
+        restaurants[6].addFoodItem(new Food(10, "Cookie"));
+        restaurants[6].addFoodItem(new Food(20, "Ekler"));
+
+        restaurants[7] = new Restaurant(11000, this);
+        restaurants[7].addFoodItem(new Food(15, "Sushi"));
+        restaurants[7].addFoodItem(new Food(10, "Tempura Roll"));
+        restaurants[7].addFoodItem(new Food(20, "Nigiri"));
+
     }
 
-    public void definePriceManegementMenus ()
-    {
+    public void definePriceManegementMenus() {
         priceManagementMenus[0] = new PriceManagementMenu(game, towerMenu);
         priceManagementMenus[0].addFoodToMenu(restaurants[0].getFoods()[0]);
         priceManagementMenus[0].addFoodToMenu(restaurants[0].getFoods()[1]);
@@ -187,9 +185,7 @@ public class TowerMenu extends ScreenAdapter {
         priceManagementMenus[7].addFoodToMenu(restaurants[7].getFoods()[1]);
         priceManagementMenus[7].addFoodToMenu(restaurants[7].getFoods()[2]);
         priceManagementMenus[7].setPriceMenuImg("price8.png");
-        
 
-        
     }
 
     public void nextDayButton() {
@@ -243,8 +239,7 @@ public class TowerMenu extends ScreenAdapter {
         settingsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // TODO
-                // TODO
+                game.newScreen(new Settings(game, towerMenu, 1, main));
 
             }
 
@@ -520,9 +515,8 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[0]);
-                System.out.println();
                 System.out.println(priceManagementMenus[0].getSellPrice1());
-                
+
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
             }
@@ -768,43 +762,33 @@ public class TowerMenu extends ScreenAdapter {
             removeCustomers.add(customer);
         }
 
-        for (Customer customer: removeCustomers)
-        {
-            if (customer.getX()>2000)
-            {
+        for (Customer customer : removeCustomers) {
+            if (customer.getX() > 2000) {
                 customers.remove(customer);
             }
         }
 
-
-        
-        
-        
-        if (n == 40) 
-        {
+        if (n == 40) {
             addCustomer();
-            n=0;
+            n = 0;
         }
         n++;
-        
+
     }
     // #endregion
 
-    public void addCustomer ()
-    {
+    public void addCustomer() {
         java.util.Random random = new java.util.Random();
         int rand = random.nextInt(8);
 
-        
-        if (isOpen[rand]==true)
-        {
-                customers.add(new Customer(rand+1));
-                System.out.println(isOpen[1]);
-                
+        System.out.println(isOpen[rand]);
+        if (isOpen[rand] == true) {
+            customers.add(new Customer(rand + 1));
+            System.out.println(isOpen[1]);
+
         }
-        
-        else
-        {
+
+        else {
             addCustomer();
         }
     }
@@ -813,17 +797,24 @@ public class TowerMenu extends ScreenAdapter {
         isOpen[restaurantNumber] = true;
     }
 
-    public void setFoodsSellingPrices ()
-    {
-        restaurants[0].setFoodsSellingPrices(priceManagementMenus[0].getSellPrice1(), priceManagementMenus[0].getSellPrice2(), priceManagementMenus[0].getSellPrice3());
-        restaurants[1].setFoodsSellingPrices(priceManagementMenus[1].getSellPrice1(), priceManagementMenus[1].getSellPrice2(), priceManagementMenus[1].getSellPrice3());
-        restaurants[2].setFoodsSellingPrices(priceManagementMenus[2].getSellPrice1(), priceManagementMenus[2].getSellPrice2(), priceManagementMenus[2].getSellPrice3());
-        restaurants[3].setFoodsSellingPrices(priceManagementMenus[3].getSellPrice1(), priceManagementMenus[3].getSellPrice2(), priceManagementMenus[3].getSellPrice3());
-        restaurants[4].setFoodsSellingPrices(priceManagementMenus[4].getSellPrice1(), priceManagementMenus[4].getSellPrice2(), priceManagementMenus[4].getSellPrice3());
-        restaurants[5].setFoodsSellingPrices(priceManagementMenus[5].getSellPrice1(), priceManagementMenus[5].getSellPrice2(), priceManagementMenus[5].getSellPrice3());
-        restaurants[6].setFoodsSellingPrices(priceManagementMenus[6].getSellPrice1(), priceManagementMenus[6].getSellPrice2(), priceManagementMenus[6].getSellPrice3());
-        restaurants[7].setFoodsSellingPrices(priceManagementMenus[7].getSellPrice1(), priceManagementMenus[7].getSellPrice2(), priceManagementMenus[7].getSellPrice3());
-        
+    public void setFoodsSellingPrices() {
+        restaurants[0].setFoodsSellingPrices(priceManagementMenus[0].getSellPrice1(),
+                priceManagementMenus[0].getSellPrice2(), priceManagementMenus[0].getSellPrice3());
+        restaurants[1].setFoodsSellingPrices(priceManagementMenus[1].getSellPrice1(),
+                priceManagementMenus[1].getSellPrice2(), priceManagementMenus[1].getSellPrice3());
+        restaurants[2].setFoodsSellingPrices(priceManagementMenus[2].getSellPrice1(),
+                priceManagementMenus[2].getSellPrice2(), priceManagementMenus[2].getSellPrice3());
+        restaurants[3].setFoodsSellingPrices(priceManagementMenus[3].getSellPrice1(),
+                priceManagementMenus[3].getSellPrice2(), priceManagementMenus[3].getSellPrice3());
+        restaurants[4].setFoodsSellingPrices(priceManagementMenus[4].getSellPrice1(),
+                priceManagementMenus[4].getSellPrice2(), priceManagementMenus[4].getSellPrice3());
+        restaurants[5].setFoodsSellingPrices(priceManagementMenus[5].getSellPrice1(),
+                priceManagementMenus[5].getSellPrice2(), priceManagementMenus[5].getSellPrice3());
+        restaurants[6].setFoodsSellingPrices(priceManagementMenus[6].getSellPrice1(),
+                priceManagementMenus[6].getSellPrice2(), priceManagementMenus[6].getSellPrice3());
+        restaurants[7].setFoodsSellingPrices(priceManagementMenus[7].getSellPrice1(),
+                priceManagementMenus[7].getSellPrice2(), priceManagementMenus[7].getSellPrice3());
+
     }
 
     @Override
@@ -832,12 +823,18 @@ public class TowerMenu extends ScreenAdapter {
         setFoodsSellingPrices();
         System.out.println(restaurants[0].getFoods()[0].getSellPrice());
         ScreenUtils.clear(1, 0, 0, 1);
+
         game.batch.begin();
+
         game.batch.draw(towerMenuImg, 0, 0);
+
         BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
         font.getData().setScale(1, 1);
+
         font.draw(game.batch, "Total Money: " + totalMoney, 80, 1000);
+
         font.draw(game.batch, "Day: " + day, 82, 970);
+
         font.getData().setScale(2, 2);
         font.draw(game.batch, "Next Day", 1600, 170);
 

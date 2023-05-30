@@ -3,6 +3,7 @@ package com.mygdx.tod.ScenesClasses;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,10 +34,14 @@ public class MainMenu extends ScreenAdapter {
     private Button lbButton;
     private Button exitButton;
     private Stage stage;
+    private long musicID;
+
+    Sound music = Gdx.audio.newSound(Gdx.files.internal("music.wav"));
 
     public MainMenu(TowerOfDining tod) {
         game = tod;
         menuImg = new Texture("title screen.png");
+        musicID = music.loop(0.1f);
 
         // Creating the "Play" button textures are not necessary since the button will
         // be invisible
@@ -161,6 +166,14 @@ public class MainMenu extends ScreenAdapter {
         render(5);
     }
 
+    public void setVol(float vol) {
+        music.setVolume(musicID, vol);
+    }
+
+    public void closeMusic() {
+        music.dispose();
+    }
+
     protected void handleExitButtonClick() {
         System.exit(0);
     }
@@ -171,11 +184,14 @@ public class MainMenu extends ScreenAdapter {
 
     protected void handlePlayButtonClick() {
         game.closeScreen();
-        game.newScreen(new TowerMenu(game));
+        game.newScreen(new TowerMenu(game, this));
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
     }
 
-    protected void handleSettingsButtonClick() {// TODO
+    protected void handleSettingsButtonClick() {
+        game.newScreen(new Settings(game, null, 0, this));
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+
     }
 
     @Override

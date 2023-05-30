@@ -29,13 +29,10 @@ public class EndOfDayScreen extends PopUp {
     private int[] earnings = new int[8];
     private Stage buttonStage;
     private Button nextButton;
-    private TowerMenu towerMenu;
     private int totalEarnings;
 
     public EndOfDayScreen(TowerOfDining game, TowerMenu towerMenu) {
         super(game);
-        this.towerMenu = towerMenu;
-
         // code fragment taken from MainMenu class
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("dayend.png")));
@@ -92,7 +89,7 @@ public class EndOfDayScreen extends PopUp {
         for (int i = 0; i < 8; i++) {
             int column = i % 2;
             int row = i / 2;
-            font.draw(game.batch, "" + earnings[i], 400 + column * 600, 210 + row * 200);
+            font.draw(game.batch, "" + earnings[i], 400 + column * 600 - 170, 210 + row * 200);
         }
 
         font.draw(game.batch, "" + totalEarnings, 1300, 200);
