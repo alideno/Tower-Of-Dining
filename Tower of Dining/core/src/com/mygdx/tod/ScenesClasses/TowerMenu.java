@@ -52,7 +52,7 @@ public class TowerMenu extends ScreenAdapter {
     private Stage stage;
     int n = 0;
     ArrayList<Customer> customers = new ArrayList<Customer>();
-    Customer customer1 = new Customer(0);
+    Customer customer1 = new Customer(1);
 
     public TowerMenu(TowerOfDining game) {
         towerMenu = this;
@@ -750,6 +750,8 @@ public class TowerMenu extends ScreenAdapter {
             n = 0;
         }
         n++;
+
+        System.out.println(customer1.getX()); 
     }
     // #endregion
 
