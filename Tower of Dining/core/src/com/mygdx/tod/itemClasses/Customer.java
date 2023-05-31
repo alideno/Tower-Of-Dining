@@ -12,6 +12,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer.Random;
 
 public class Customer {
+    static Texture BrownManMini = new Texture("BrownManMini.png");
+    static Texture NavyManMini = new Texture("NavyManMini.png");
+    static Texture PurpleManMini = new Texture("PurpleManMini.png");
+    static Texture OrangeManMini = new Texture("OrangeManMini.png");
+    static Texture GreenManMini = new Texture("GreenManMini.png");
+
     Texture img;
     int x = -100;
     int y = 255;
@@ -38,23 +44,23 @@ public class Customer {
 
         if (randomNum==0) 
         {
-            this.img = new Texture("BrownManMini.png");
+            this.img = BrownManMini;
         }
         else if (randomNum==1)
         {
-            this.img = new Texture("NavyManMini.png");
+            this.img = GreenManMini;
         }
         else if (randomNum==2)
         {
-            this.img = new Texture("PurpleManMini.png");
+            this.img = NavyManMini;
         }
         else if (randomNum==3)
         {
-            this.img = new Texture("OrangeManMini.png");
+            this.img = PurpleManMini;
         }
         else if (randomNum==4)
         {
-            this.img = new Texture("GreenManMini.png");
+            this.img = OrangeManMini;
         }
     }
 
