@@ -1,0 +1,41 @@
+Ali Deniz Sözer CS-102 Project Log
+
+6-12 February
+	-> Formed group
+
+20-26 February (~ 2h)
+	-> Formulated project idea with group(~ 1h)
+	-> Formulated the general aspects of the game with group (~ 1h)
+
+6-12 March (~ 2h)
+	-> Discussed requirements report with group(~ 1h) 
+	-> Prepared part of requirements report (~ 1h)
+
+17-23 April (~ 2h)
+	-> Discussed UI ideas with group(~ 2h)
+	-> Prepared UI designs for tower screen (~ 1h)
+
+24-30 April (~ 1h)
+	-> Wrote my part of the UI design report(~ 1h)
+
+8-14 May (~ 3h)
+	-> Distributed the project to group members with group (~ 1h)
+	-> Created the repository with group and worked on possible pull-push problems (~ 2h)
+
+15-20 May (~ 6h)
+    -> Started to draw the assets(~ 5h)
+	-> Wrote detailed design parts given to me (~ 1h)
+
+22-28 May (~ 10h)
+	25 May (~ 5h)
+		-> Wrote the first version of the MainMenu class (~ 5h)
+	26 May (~ 5h)
+		-> Finished the assets (~ 5h)
+	
+29 May-3 Jun (~ 17h)
+	28 May (~ 5h)
+		-> Developed the Food class (~ 5h)
+	29 May (~ 6h)
+		-> Developed the Shop class further (~ 6h)
+	30 May (~ 6h)
+		-> Worked on finishing up classes (~ 6h)
