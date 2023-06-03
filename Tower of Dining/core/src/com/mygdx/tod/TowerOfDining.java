@@ -2,7 +2,6 @@ package com.mygdx.tod;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-
 import java.util.Stack;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.tod.ScenesClasses.MainMenu;

@@ -61,7 +61,8 @@ public class Restaurant {
             for (int i = 0; i < 3; i++) {
                 if (foods != null) {
                     int customers = foods[i].calculateCustomers();
-                    earning += (this.foods[i].getSellPrice() * customers) - 100;
+                    earning += (this.foods[i].getSellPrice() * customers);
+                    foods[i].removeStock(customers);
                 }
             }
         }

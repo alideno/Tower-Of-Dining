@@ -30,21 +30,19 @@ public class Food {
     }
 
     public int calculateCustomers() {
-        if (sellPrice >= basePrice) {
-            if ((int) ((int) (-1/20)* Math.pow(sellPrice-basePrice, 2)+20) < 0) {
-               return 0; 
-            }else {
-                return (int) ((int) (-1/20)* Math.pow(sellPrice-basePrice, 2)+20);
-            }
-        }else{
-            if ((int) ((int) (1/20)* Math.pow(sellPrice-basePrice, 2)+20) > 40) {
-                return 40;
-            }else{
-                return (int) ((int) (1/20)* Math.pow(sellPrice-basePrice, 2)+20);
-            }
+        if (currentStock > 0) {
+            if (sellPrice >= basePrice) {
+                int customers = (int) (Math.log(sellPrice + 1) * 10);
+                return Math.max(customers, 0);
+            } else {
+                int customers = (int) (Math.log(basePrice + 1) * 10);
+                return Math.min(customers, 40);
 
+            }
         }
+        return 0;
     }
+    
 
     public int  getStock(){
         return currentStock;

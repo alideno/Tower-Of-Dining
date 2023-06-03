@@ -3,32 +3,20 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.ArrayList;
 
-import javax.print.attribute.standard.Sides;
-import javax.swing.JSlider;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.event.MouseInputListener;
-import java.awt.event.MouseAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.tod.TowerOfDining;
 import com.mygdx.tod.itemClasses.Food;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
@@ -528,8 +516,6 @@ public class PriceManagementMenu extends ScreenAdapter
 
             
         x1 =  990 + (int) (348 * (sellingPrice1-basePrice)/(basePrice*(priceModiefier)) ); 
-        System.out.println( (sellingPrice1-basePrice)/(basePrice*(priceModiefier)));
-        System.out.println((30 * (sellingPrice1-basePrice)/(basePrice*(priceModiefier)) ));
 
         if (x1<990)
         {

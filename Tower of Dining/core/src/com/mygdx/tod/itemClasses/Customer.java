@@ -1,23 +1,11 @@
 package com.mygdx.tod.itemClasses;
 
-import java.util.ArrayList;
-
-import org.w3c.dom.Text;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer.Random;
 
 public class Customer {
-    static Texture BrownManMini = new Texture("BrownManMini.png");
-    static Texture NavyManMini = new Texture("NavyManMini.png");
-    static Texture PurpleManMini = new Texture("PurpleManMini.png");
-    static Texture OrangeManMini = new Texture("OrangeManMini.png");
-    static Texture GreenManMini = new Texture("GreenManMini.png");
-
     Texture img;
     int x = -100;
     int y = 255;
@@ -44,23 +32,23 @@ public class Customer {
 
         if (randomNum==0) 
         {
-            this.img = BrownManMini;
+            this.img = new Texture("BrownManMini.png");
         }
         else if (randomNum==1)
         {
-            this.img = GreenManMini;
+            this.img = new Texture("NavyManMini.png");
         }
         else if (randomNum==2)
         {
-            this.img = NavyManMini;
+            this.img = new Texture("PurpleManMini.png");
         }
         else if (randomNum==3)
         {
-            this.img = PurpleManMini;
+            this.img = new Texture("OrangeManMini.png");
         }
         else if (randomNum==4)
         {
-            this.img = OrangeManMini;
+            this.img = new Texture("GreenManMini.png");
         }
     }
 

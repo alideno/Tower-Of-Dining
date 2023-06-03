@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer.Random;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -41,7 +40,7 @@ public class TowerMenu extends ScreenAdapter {
     PriceManagementMenu priceManagementMenu;
     private TowerMenu towerMenu;
     Texture towerMenuImg;
-    private int totalMoney = 1000000;
+    private int totalMoney = 5000;
     private int day = 0;
     public Restaurant[] restaurants;
     public PriceManagementMenu[] priceManagementMenus;
@@ -106,34 +105,34 @@ public class TowerMenu extends ScreenAdapter {
         restaurants[1].addFoodItem(new Food(20, "Sauce"));
 
         restaurants[2] = new Restaurant(6000, this);
-        restaurants[2].addFoodItem(new Food(15, "Doner"));
+        restaurants[2].addFoodItem(new Food(20, "Doner"));
         restaurants[2].addFoodItem(new Food(10, "Bread"));
-        restaurants[2].addFoodItem(new Food(20, "Ayran"));
+        restaurants[2].addFoodItem(new Food(5, "Ayran"));
 
         restaurants[3] = new Restaurant(7000, this);
-        restaurants[3].addFoodItem(new Food(15, "Coffee"));
-        restaurants[3].addFoodItem(new Food(10, "Ice Coffee"));
-        restaurants[3].addFoodItem(new Food(20, "Milked Coffee"));
+        restaurants[3].addFoodItem(new Food(40, "Coffee"));
+        restaurants[3].addFoodItem(new Food(45, "Ice Coffee"));
+        restaurants[3].addFoodItem(new Food(30, "Milked Coffee"));
 
         restaurants[4] = new Restaurant(8000, this);
         restaurants[4].addFoodItem(new Food(15, "Sandwich"));
         restaurants[4].addFoodItem(new Food(10, "Wrap"));
-        restaurants[4].addFoodItem(new Food(20, "Toast"));
+        restaurants[4].addFoodItem(new Food(30, "Toast"));
 
         restaurants[5] = new Restaurant(9000, this);
-        restaurants[5].addFoodItem(new Food(15, "Pepperoni P"));
-        restaurants[5].addFoodItem(new Food(10, "Veggie Pizza"));
-        restaurants[5].addFoodItem(new Food(20, "Cheese Pizza"));
+        restaurants[5].addFoodItem(new Food(70, "Pepperoni P"));
+        restaurants[5].addFoodItem(new Food(50, "Veggie Pizza"));
+        restaurants[5].addFoodItem(new Food(40, "Cheese Pizza"));
 
         restaurants[6] = new Restaurant(10000, this);
-        restaurants[6].addFoodItem(new Food(15, "Cake"));
-        restaurants[6].addFoodItem(new Food(10, "Cookie"));
-        restaurants[6].addFoodItem(new Food(20, "Ekler"));
+        restaurants[6].addFoodItem(new Food(60, "Cake"));
+        restaurants[6].addFoodItem(new Food(30, "Cookie"));
+        restaurants[6].addFoodItem(new Food(40, "Ekler"));
 
         restaurants[7] = new Restaurant(11000, this);
-        restaurants[7].addFoodItem(new Food(15, "Sushi"));
-        restaurants[7].addFoodItem(new Food(10, "Tempura Roll"));
-        restaurants[7].addFoodItem(new Food(20, "Nigiri"));
+        restaurants[7].addFoodItem(new Food(200, "Sushi"));
+        restaurants[7].addFoodItem(new Food(190, "Tempura Roll"));
+        restaurants[7].addFoodItem(new Food(180, "Nigiri"));
 
     }
 
@@ -545,7 +544,6 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[1]);
-                System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
@@ -571,7 +569,6 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[2]);
-                System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
@@ -597,7 +594,6 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[3]);
-                System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
@@ -623,7 +619,6 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[4]);
-                System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
@@ -649,7 +644,6 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[5]);
-                System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
@@ -675,7 +669,6 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[6]);
-                System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 
@@ -700,7 +693,6 @@ public class TowerMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(priceManagementMenus[7]);
-                System.out.println("aaa");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
             }
 

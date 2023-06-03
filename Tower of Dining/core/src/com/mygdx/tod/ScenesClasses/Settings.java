@@ -19,7 +19,7 @@ public class Settings extends ScreenAdapter {
     Texture settingsImg;
     TowerOfDining game;
     TowerMenu towerMenu;
-    private float volume = 1f;
+    private float volume = 0.55f;
     MainMenu main;
 
     public Settings(TowerOfDining game, TowerMenu towerMenu, int one, MainMenu main) {

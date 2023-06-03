@@ -41,7 +41,7 @@ public class MainMenu extends ScreenAdapter {
     public MainMenu(TowerOfDining tod) {
         game = tod;
         menuImg = new Texture("title screen.png");
-        musicID = music.loop(0.1f);
+        musicID = music.loop(0.5f);
 
         // Creating the "Play" button textures are not necessary since the button will
         // be invisible
@@ -176,10 +176,6 @@ public class MainMenu extends ScreenAdapter {
 
     protected void handleExitButtonClick() {
         System.exit(0);
-    }
-
-    protected void handleLbButtonClick() {// TODO
-        System.out.println("lb");
     }
 
     protected void handlePlayButtonClick() {

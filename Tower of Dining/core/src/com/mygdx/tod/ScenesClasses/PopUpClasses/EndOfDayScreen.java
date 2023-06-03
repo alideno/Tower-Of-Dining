@@ -65,6 +65,9 @@ public class EndOfDayScreen extends PopUp {
 
         totalEarnings = 0;
         restaurants = towerMenu.getRestaurants();
+        restaurants[0].openRestaurant();
+
+        
         for (int i = 0; i < 8; i++) {
             earnings[i] = restaurants[i].endDay();
             totalEarnings += earnings[i];
@@ -84,7 +87,7 @@ public class EndOfDayScreen extends PopUp {
         game.batch.draw(popupTexture, 0, 0);
 
         BitmapFont font = new BitmapFont(Gdx.files.internal("minecraftFontWhite.fnt"));
-        font.getData().setScale(4.5f);
+        font.getData().setScale(3f);
 
         for (int i = 0; i < 8; i++) {
             int column = i % 2;

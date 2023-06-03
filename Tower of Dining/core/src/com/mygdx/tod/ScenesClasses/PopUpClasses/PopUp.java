@@ -1,5 +1,4 @@
 package com.mygdx.tod.ScenesClasses.PopUpClasses;
-import com.badlogic.gdx.Game;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
