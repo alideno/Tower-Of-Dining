@@ -51,7 +51,11 @@ Deniz Şahin CS-102 Project Log
 		-> Worked on the PurchaseRestaurant class (~ 1h)
 		-> Worked on the EndOfDayScreen class (~ 1h)
 
-29 May - 4 June (~ 12h)
+29 May - 4 June (~ 15h)
 	29 May (~12h)
 		-> Worked on some JDBC issues (~ 6h)
 		-> Worked on finishing up classes (~ 6h)
+	3 June (~ 3h)
+		-> Worked on the class explanations for Detailed design 2 (~ 0.5h)
+		-> Created the video presentation/demo (~ 2h)
+		-> Finalised the log files and the git repo (~ 0.5h)
